@@ -1,0 +1,92 @@
+<div class="container-fluid mt-2" >
+  <form [formGroup]="editForm" (ngSubmit)="onSubmit()" *ngIf="!mainLoader">
+      <div class="form-row">
+          <div class="form-group col-md-3 col-sm-6">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" value="{{detailedUser?.name}}" id="name" disabled>
+          </div>
+          <div class="form-group col-md-3 col-sm-6">
+              <label for="flat">Flat</label>
+              <input type="text" class="form-control" value="{{detailedUser?.flat}}" id="flat" disabled>
+          </div>
+          <div class="form-group col-md-3 col-sm-6">
+              <label for="Carpet">Carpet Area</label>
+              <input type="text" class="form-control" value="{{detailedUser?.carpetarea}}" id="Carpet" disabled>
+          </div>
+          <div class="form-group col-md-3 col-sm-6">
+              <label for="buildingName">Building name</label>
+              <input type="text" class="form-control" value="{{detailedUser?.building}}" id="buildingName" disabled>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label for="housetype">House type</label>
+            <input type="text" class="form-control" value="{{detailedUser?.housetype}}" id="housetype" disabled>
+          </div>
+          <div class="form-group col-md-3">
+              <label for="extraFeatures">Extra Features</label>
+              <input type="text" class="form-control" value="{{detailedUser?.extrafeatures}}" id="extraFeatures" disabled>
+          </div>
+          <div class="form-group col-md-3">
+                <label for="parking">Parking</label>
+                <input type="text" class="form-control" value="{{detailedUser?.parking}}" id="parking" disabled>
+          </div>
+          <div class="form-group col-md-3">
+                  <label for="parkingslot">Parking slot no</label>
+                  <input type="text" class="form-control" value="{{detailedUser?.slotno}}" id="parkingslot" disabled>
+          </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-3">
+              <label for="parkingsticker">Parking sticker no.</label>
+              <input type="text" class="form-control" value="{{detailedUser?.stickerno}}" id="parkingsticker" disabled>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="vehicle">Vehicle Model</label>
+                <input type="text" class="form-control" id="vehicle" formControlName="vmodel" value="{{detailedUser?.vmodel}}">
+            </div>
+            <div class="form-group col-md-3">
+                  <label for="wheelerType">2/4 Wheeler</label>
+                  <input type="text" class="form-control" value="{{detailedUser?.twofourwheel}}" id="wheelerType" disabled>
+            </div>
+            <div class="form-group col-md-3">
+                    <label for="email">Email Id</label>
+                    <input type="text" class="form-control" id="email" value="{{detailedUser?.emailid}}" formControlName="emailid">
+            </div>
+          </div>
+          <div class="form-row">
+              <div class="form-group col-md-3">
+                <label for="mobile">Mobile No.</label>
+                <input type="text" class="form-control" id="mobile" formControlName="mobile" value="{{detailedUser?.mobile}}">
+              </div>
+              <div class="form-group col-md-3">
+                  <label for="landline">Landline</label>
+                  <input type="text" class="form-control" id="landline" formControlName="landline" value="{{detailedUser?.landline}}">
+              </div>
+          </div>
+          <div class="form-row mt-5">
+            <div class="form-group col-md-2 col-sm-6">
+              <button class="btn btn-primary btn-block" type="submit" *ngIf="!showLoader">
+                <i class="fa fa-save mr-2"></i>Save
+              </button>
+
+              <div class="text-center" *ngIf="showLoader">
+                  <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+              </div>
+
+            </div>
+          </div>
+  </form>
+  <div class="row mt-5" *ngIf="mainLoader">
+      <div class="col-md-12 col-sm-12">
+          <div class="text-center">
+              <div class="spinner-border text-primary" style="width: 4rem; height: 4rem;" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+

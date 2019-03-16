@@ -1,0 +1,135 @@
+<div class="container-fluid">
+  <br/><br/>
+  <div class="row">
+    <div class="col-md-10 col-sm-6 text-primary">
+      <h3><i class="far fa-angry"></i>&nbsp;Complaints List</h3>
+    </div>
+    <div class="col-md-2 col-sm-6">
+      <button class="btn btn-primary btn-block" (click)="createComplaint()">
+        <i class="fa fa-plus mr-2"></i>Create
+      </button>
+    </div>
+  </div>
+  <hr><br/>
+  <div class="row" *ngIf="!showLoader">
+    <div class="col-md-4 col-sm-6">
+      <label for="searchByUser">Title</label>
+      <div class="input-group">
+        <input type="text" class="form-control" id="searchByUser" [(ngModel)]="searchTitle">
+        <div class="input-group-append">
+          <span class="input-group-text"><i class="fas fa-search"></i></span>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="col-md-4 col-sm-6">
+      <label for="searchByUser">Resident Name</label>
+      <div class="input-group">
+        <input type="text" class="form-control" id="searchByUser" [(ngModel)]="searchName">
+        <div class="input-group-append">
+          <span class="input-group-text"><i class="fas fa-search"></i></span>
+        </div>
+      </div>
+    </div> -->
+  </div>
+  <br>
+  <div class="row" *ngIf="!showLoader">
+    <div class="col-md-12 col-sm-12 table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+              <th>Sr. No</th>
+              <th>Title</th>
+              <th>Resident Name</th>
+              <th>Status</th>
+              <th>Details</th>
+              <!-- <th>Edit</th> -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of filteredComplaintList |  paginate: { id: 'pager',
+          itemsPerPage: 10,
+          currentPage: p }; let i = index;">
+              <td>{{ i+1 }}</td>
+              <td>{{ item.title }}</td>
+              <td> {{ item.residentName }}</td>
+              <td>{{ displayStatus(item.status) }}</td>
+              <td><i class="far fa-eye" style="cursor: pointer"
+                data-toggle="modal" data-target="#detailModal" (click)="showDetail(item)"></i></td>
+              <!-- <td><i class="fas fa-pencil-alt" style="cursor: pointer" (click)="editComplaint(item.$key, item.$mainKey)"></i></td> -->
+          </tr>
+        </tbody>
+      </table>
+      <pagination-controls  id="pager"
+                      (pageChange)="p = $event"
+                      autoHide="true"
+                      previousLabel="Previous"
+                      nextLabel="Next"
+                      screenReaderPaginationLabel="Pagination"
+                      screenReaderPageLabel="page"
+                      screenReaderCurrentLabel="You're on page">
+    </pagination-controls>
+    </div>
+  </div>
+  <br/><br/>
+  <div class="row" *ngIf="showLoader">
+    <div class="col-md-12 col-sm-12">
+        <div class="text-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+          </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ####################################### Complaint Detail Confirmation Modal ####################################### -->
+
+<div class="modal" tabindex="-1" role="dialog" id="detailModal">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title"><i class="fas fa-user"></i> &nbsp; {{detailsComplaint?.title}} </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="text-white" >&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <label for="date">Date</label>
+                <input type="text" class="form-control" disabled id="date" value="{{detailsComplaint?.date}}">
+              </div>
+              <div class="col-md-6 col-sm-12">
+                  <label for="status">Status</label>
+                  <input type="text" class="form-control" disabled id="status" value="{{displayStatus(detailsComplaint?.status)}}">
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-12 col-sm-12">
+                  <label for="name">Name</label>
+                  <input type="text" class="form-control" disabled id="name" value="{{detailsComplaint?.residentName}}">
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-12 col-sm-12">
+                  <label for="complaint">Complaint</label>
+                  <textarea type="text" class="form-control" disabled id="complaint"
+                  value="{{detailsComplaint?.complaint}}"></textarea>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-12 col-sm-12">
+                  <label for="ac">Admin Comments</label>
+                  <textarea type="text" class="form-control" disabled id="ac"
+                  value="{{detailsComplaint?.Admincomments}}"></textarea>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ####################################### Complaint Detail Confirmation Modal ####################################### -->

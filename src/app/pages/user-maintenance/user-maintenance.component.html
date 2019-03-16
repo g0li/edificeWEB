@@ -1,0 +1,314 @@
+<div class="container-fluid">
+  <br/>
+  <div class="row">
+    <div class="col-md-4 col-sm-6 text-primary">
+      <h3> <i class="fas fa-hammer"></i> Maintenance Notice List</h3>
+    </div>
+    <!-- <div class="col-md-2 col-sm-6 offset-md-5">
+      <button class="btn btn-primary btn-block" (click)="onCreate()">
+          <i class="fas fa-plus"></i> Create
+      </button>
+    </div> -->
+  </div>
+  <hr>
+  <div class="row" *ngIf="!showLoader">
+    <!-- <div class="col-md-3 col-sm-6">
+      <label for="searchByUser">Username</label>
+      <div class="input-group">
+        <input type="text" class="form-control" id="searchByUser" [(ngModel)]="searchName">
+        <div class="input-group-append">
+          <span class="input-group-text"><i class="fas fa-search"></i></span>
+        </div>
+      </div>
+    </div> -->
+    <div class="col-md-3 col-sm-6">
+        <label for="searchByBuilding">Building</label>
+        <div class="input-group">
+          <input type="text" class="form-control" id="searchByBuilding" [(ngModel)]="searchBuilding">
+          <div class="input-group-append">
+            <span class="input-group-text"><i class="fas fa-search"></i></span>
+          </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+        <label for="searchByFlat">Flat</label>
+        <div class="input-group">
+          <input type="text" class="form-control" id="searchByFlat" [(ngModel)]="searchFlat">
+          <div class="input-group-append">
+            <span class="input-group-text"><i class="fas fa-search"></i></span>
+          </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+        <label for="searchByDate">Date</label>
+        <div class="input-group">
+          <input type="text" class="form-control" id="searchByDate" [(ngModel)]="searchDate" bsDatepicker autocomplete="off" [bsConfig]="datepickerConfig">
+          <div class="input-group-append">
+            <span class="input-group-text"><i class="fas fa-search"></i></span>
+          </div>
+        </div>
+    </div>
+  </div>
+  <br/><br/>
+  <div class="row" *ngIf="!showLoader">
+    <div class="col-md-12 col-sm-12 table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Building</th>
+            <th>Flat</th>
+            <th>Date</th>
+            <th>Total Bill</th>
+            <th>Details</th>
+            <!-- <th>Download</th> -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of filteredMaintenanceList |  paginate: { id: 'pager',
+          itemsPerPage: 10,
+          currentPage: p }; let i = index;">
+            <td>{{item.header.resident}}</td>
+            <td>{{item.header.building}}</td>
+            <td>{{item.header.flat}}</td>
+            <td>{{item.header.date}}</td>
+            <td>{{item.totalbill}}</td>
+            <td><i class="far fa-eye" style="cursor: pointer; font-size: 25px;"
+              data-toggle="modal" data-target="#downloadModal" (click)="onShowDetail(item, item.bill)"></i></td>
+            <!-- <td><i class="far fa-file-pdf text-danger" style="cursor: pointer; font-size: 25px;" (click)="onShowDetail(item, item.bill);"></i></td> -->
+          </tr>
+        </tbody>
+        <pagination-controls  id="pager"
+                      (pageChange)="p = $event"
+                      autoHide="true"
+                      previousLabel="Previous"
+                      nextLabel="Next"
+                      screenReaderPaginationLabel="Pagination"
+                      screenReaderPageLabel="page"
+                      screenReaderCurrentLabel="You're on page">
+    </pagination-controls>
+      </table>
+    </div>
+  </div>
+  <br/><br/>
+  <div class="row" *ngIf="showLoader">
+    <div class="col-md-12 col-sm-12">
+        <div class="text-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+          </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal" tabindex="-1" role="dialog" id="downloadModal">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header text-primary">
+          <h5 class="modal-title">Maintenance Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="card">
+                <div class="card-header text-primary">User Details</div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-3 mt-2">
+                      <label for="name">Name</label>
+                      <input type="text" class="form-control" disabled value="{{maintenanceDetail?.header.resident}}">
+                    </div>
+                    <div class="col-md-3 mt-2">
+                        <label for="name">Building</label>
+                        <input type="text" class="form-control" disabled value="{{maintenanceDetail?.header.building}}">
+                    </div>
+                    <div class="col-md-3 mt-2">
+                        <label for="name">Flat</label>
+                        <input type="text" class="form-control" disabled value="{{maintenanceDetail?.header.flat}}">
+                    </div>
+                    <div class="col-md-3 mt-2">
+                        <label for="name">Floor Area</label>
+                        <input type="text" class="form-control" disabled value="{{maintenanceDetail?.header.carpetarea}}">
+                    </div>
+                    <div class="col-md-3 mt-2">
+                        <label for="name">House Type</label>
+                        <input type="text" class="form-control" disabled value="{{maintenanceDetail?.header.housetype}}">
+                    </div>
+                    <div class="col-md-3 mt-2">
+                        <label for="name">Bill For</label>
+                        <input type="text" class="form-control" disabled value="{{maintenanceDetail?.header.billfor}}">
+                    </div>
+                    <div class="col-md-3 mt-2">
+                        <label for="name">Date</label>
+                        <input type="text" class="form-control" disabled value="{{maintenanceDetail?.header.date}}">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br/>
+              <div class="card">
+                  <div class="card-header text-primary">Bill Details</div>
+                  <div class="card-body">
+                    <div class="row" *ngFor="let ob of detialBill;let i = index;">
+                      <div class="col-md-4 mt-2">
+                        <label for="Srno">Srno</label>
+                        <input type="text" class="form-control" disabled value="{{i+1}}" >
+                      </div>
+                      <div class="col-md-4 mt-2">
+                          <label for="praticular">Particular</label>
+                          <input type="text" class="form-control" disabled value="{{ob?.particular}}">
+                      </div>
+                      <div class="col-md-4 mt-2">
+                          <label for="amount">Amount</label>
+                          <input type="text" class="form-control" disabled value="{{ob?.amount}}">
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                      <div class="col-md-8 mt-2 text-right">
+                          <label for="amount" style="font-weight: bolder">Sub total</label>
+                      </div>
+                      <div class="col-md-4 mt-2">
+                          <input type="text" class="form-control" disabled value="{{maintenanceDetail?.subtotal}}">
+                      </div>
+                      <div class="col-md-8 mt-2 text-right">
+                          <label for="amount" style="font-weight: bolder">Interest / Fine</label>
+                      </div>
+                      <div class="col-md-4 mt-2">
+                          <input type="text" class="form-control" disabled value="{{maintenanceDetail?.interest}}">
+                      </div>
+                      <div class="col-md-8 mt-2 text-right">
+                          <label for="amount" style="font-weight: bolder">Payable</label>
+                      </div>
+                      <div class="col-md-4 mt-2">
+                          <input type="text" class="form-control" disabled value="{{maintenanceDetail?.payable}}">
+                      </div>
+                      <div class="col-md-8 mt-2 text-right">
+                          <label for="amount" style="font-weight: bolder">Pending</label>
+                      </div>
+                      <div class="col-md-4 mt-2">
+                          <input type="text" class="form-control" disabled value="{{maintenanceDetail?.pending}}">
+                      </div>
+                      <div class="col-md-8 mt-2 text-right">
+                          <label for="amount" style="font-weight: bolder">Total due amount</label>
+                      </div>
+                      <div class="col-md-4 mt-2">
+                          <input type="text" class="form-control" disabled value="{{maintenanceDetail?.totalbill}}">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+<div class="modal" tabindex="-1" role="dialog" id="downloadModal">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Maintenance Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="card">
+                <div class="card-header">User Details</div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-3 mt-2">
+                      <label for="name">Name</label>
+                      <input type="text" class="form-control" disabled value="{{maintenanceDetail?.header.resident}}">
+                    </div>
+                    <div class="col-md-3 mt-2">
+                        <label for="name">Building</label>
+                        <input type="text" class="form-control" disabled value="{{maintenanceDetail?.header.building}}">
+                    </div>
+                    <div class="col-md-3 mt-2">
+                        <label for="name">Flat</label>
+                        <input type="text" class="form-control" disabled value="{{maintenanceDetail?.header.flat}}">
+                    </div>
+                    <div class="col-md-3 mt-2">
+                        <label for="name">Floor Area</label>
+                        <input type="text" class="form-control" disabled value="{{maintenanceDetail?.header.carpetarea}}">
+                    </div>
+                    <div class="col-md-3 mt-2">
+                        <label for="name">House Type</label>
+                        <input type="text" class="form-control" disabled value="{{maintenanceDetail?.header.housetype}}">
+                    </div>
+                    <div class="col-md-3 mt-2">
+                        <label for="name">Bill For</label>
+                        <input type="text" class="form-control" disabled value="{{maintenanceDetail?.header.billfor}}">
+                    </div>
+                    <div class="col-md-3 mt-2">
+                        <label for="name">Date</label>
+                        <input type="text" class="form-control" disabled value="{{maintenanceDetail?.header.date}}">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br/>
+              <div class="card">
+                  <div class="card-header">Bill Details</div>
+                  <div class="card-body">
+                    <div class="row" *ngFor="let ob of detialBill;let i = index;">
+                      <div class="col-md-4 mt-2">
+                        <label for="Srno">Srno</label>
+                        <input type="text" class="form-control" disabled value="{{i+1}}" >
+                      </div>
+                      <div class="col-md-4 mt-2">
+                          <label for="praticular">Particular</label>
+                          <input type="text" class="form-control" disabled value="{{ob?.particular}}">
+                      </div>
+                      <div class="col-md-4 mt-2">
+                          <label for="amount">Amount</label>
+                          <input type="text" class="form-control" disabled value="{{ob?.amount}}">
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                      <div class="col-md-8 mt-2 text-right">
+                          <label for="amount" style="font-weight: bolder">Sub total</label>
+                      </div>
+                      <div class="col-md-4 mt-2">
+                          <input type="text" class="form-control" disabled value="{{maintenanceDetail?.subtotal}}">
+                      </div>
+                      <div class="col-md-8 mt-2 text-right">
+                          <label for="amount" style="font-weight: bolder">Interest / Fine</label>
+                      </div>
+                      <div class="col-md-4 mt-2">
+                          <input type="text" class="form-control" disabled value="{{maintenanceDetail?.interest}}">
+                      </div>
+                      <div class="col-md-8 mt-2 text-right">
+                          <label for="amount" style="font-weight: bolder">Payable</label>
+                      </div>
+                      <div class="col-md-4 mt-2">
+                          <input type="text" class="form-control" disabled value="{{maintenanceDetail?.payable}}">
+                      </div>
+                      <div class="col-md-8 mt-2 text-right">
+                          <label for="amount" style="font-weight: bolder">Pending</label>
+                      </div>
+                      <div class="col-md-4 mt-2">
+                          <input type="text" class="form-control" disabled value="{{maintenanceDetail?.pending}}">
+                      </div>
+                      <div class="col-md-8 mt-2 text-right">
+                          <label for="amount" style="font-weight: bolder">Total due amount</label>
+                      </div>
+                      <div class="col-md-4 mt-2">
+                          <input type="text" class="form-control" disabled value="{{maintenanceDetail?.totalbill}}">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+

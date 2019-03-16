@@ -1,0 +1,132 @@
+<div class="container-fluid">
+  <br/>
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <div class="card border-0">
+        <div class="card-header bg-transparent text-primary">
+          <h4>
+              <i class="fa fa-user"></i> &nbsp;Create User
+          </h4>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="userForm" (ngSubmit)="onSubmit()" >
+            <div class="form-row">
+              <div class="form-group col-md-2 col-sm-4">
+                <label for="honorfic"> Salutation</label>
+                <select class="form-control" id="honorfic" formControlName="salutationid" *ngIf="!salutationLoader">
+                  <option selected [ngValue]="null">Select</option>
+                  <option *ngFor="let item of salutionList" [ngValue]="item.id">{{item.salutation}}</option>
+                </select>
+                <div class="d-flex justify-content-center" *ngIf="salutationLoader">
+                    <div class="spinner-grow spinner-border-sm text-primary" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+              </div>
+              <div class="form-group col-md-3 col-sm-6">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" formControlName="name">
+              </div>
+              <div class="form-group col-md-3 col-sm-6">
+                  <label for="flat">Flat</label>
+                  <input type="text" class="form-control" id="flat" formControlName="flat">
+              </div>
+              <div class="form-group col-md-4 col-sm-6">
+                  <label for="buildingName">Building Name</label>
+                  <input type="text" class="form-control" id="buildingName" formControlName="building">
+              </div>
+            </div>
+          <div class="form-row">
+              <div class="form-group col-md-3 col-sm-6">
+                <label for="houseType">House Type</label>
+                <input type="text" class="form-control" id="houseType" placeholder="2 BHK" formControlName="housetype">
+              </div>
+
+              <div class="form-group col-md-3 col-sm-6">
+                  <label for="carpetArea">Carpet Area</label>
+                  <input type="number" class="form-control" id="carpetArea" formControlName="carpetarea">
+                </div>
+
+              <div class="form-group col-md-3 col-sm-6" style="text-align: center;">
+                  <label for="parking">Parking </label>
+                  <br/>
+                  <div class="form-check form-check-inline mt-2" *ngFor="let item of parkingStatus">
+                      <input type="radio" class="form-check-input" id="{{item.status}}" value="{{item.value}}"
+                      formControlName="parking">
+                      <label class="form-check-label" for="{{item.status}}">{{item.status}}</label>
+                  </div>
+                </div>
+                <div class="form-group col-md-3 col-sm-6" style="text-align: center">
+                  <label for="extraFeatures">Extra Features</label><br/>
+                  <div class="form-check form-check-inline mt-2" *ngFor="let item of ExtraFeaturesArray.controls; let i = index;">
+                    <input class="form-check-input" type="checkbox" id="feature{{i}}" value="{{extraFeatures[i]}}" [formControl]="item"
+                    (change)="getSelectedFeatures()">
+                    <label class="form-check-label" for="feature{{i}}">{{extraFeatures[i]}}</label>
+                  </div>
+                </div>
+            </div>
+            <hr>
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                <label for="parkingSlotNo">Parking Slot No</label>
+                <input type="text" class="form-control" id="parkingSlotNo" formControlName="slotno">
+              </div>
+              <div class="form-group col-md-3">
+                  <label for="parkingStickerNo">Parking Sticker No</label>
+                  <input type="text" class="form-control" id="parkingStickerNo" formControlName="stickerno">
+              </div>
+              <div class="form-group col-md-4">
+                  <label for="vehicleModel">Vehicle Model</label>
+                  <input type="text" class="form-control" id="vehicleModel" formControlName="vmodel">
+              </div>
+              <div class="form-group col-md-3" style="text-align: center">
+                  <label for="wheelerType">2/4 Wheeler</label><br/>
+                  <div class="form-check form-check-inline mt-2" *ngFor="let item of wheerTypes">
+                      <input type="radio" class="form-check-input" id="{{item.status}}" value="{{item.value}}"
+                      formControlName="twofourwheel">
+                      <label class="form-check-label" for="{{item.status}}">{{item.status}}</label>
+                  </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-3 col-sm-6">
+                  <label for="emailid">Email</label>
+                  <input type="email" class="form-control" id="emailid" formControlName="emailid">
+              </div>
+              <div class="form-group col-md-3 col-sm-6">
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control" id="password" formControlName="password">
+              </div>
+              <div class="form-group col-md-3 col-sm-6">
+                  <label for="mobileNo">Mobile No</label>
+                  <input type="text" class="form-control" id="mobileNo" formControlName="mobile">
+                </div>
+              <div class="form-group col-md-3 col-sm-6">
+                  <label for="landlineNo">Landline</label>
+                  <input type="text" class="form-control" id="landlineNo" formControlName="landline">
+              </div>
+            </div>
+            <br/>
+            <div class="form-row">
+              <div class="form-group col-md-2 col-sm-6 offset-md-8">
+                <button class="btn btn-primary btn-block" type="submit" *ngIf="!showLoader">
+                  <i class="fa fa-save"></i> &nbsp; Submit
+                </button>
+                <div class="d-flex justify-content-center" *ngIf="showLoader">
+                    <div class="spinner-border text-primary" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+              </div>
+              <div class="form-group col-md-2 col-sm-6">
+                  <button class="btn btn-outline-secondary btn-block" (click)="this.router.navigate(['/users']);" type="button">
+                    <i class="fa fa-ban"></i> &nbsp; Cancel
+                  </button>
+                </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

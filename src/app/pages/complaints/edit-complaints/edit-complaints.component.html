@@ -1,0 +1,69 @@
+<div class="container-fluid mt-5">
+    <br/>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card border-0">
+          <h3 class="card-header bg-transparent text-primary"><i class="far fa-angry"></i>&nbsp;Complaint Details</h3>
+          <div class="card-body text-dark">
+            <form [formGroup]="complaintForm" autocomplete="off" (ngSubmit)="onSubmit()" >
+              <div class="form-row">
+                <div class="form-group col-md-4 col-sm-6">
+                  <label for="title">Title</label>
+                  <input type="text" class="form-control" id="title" formControlName="title" disabled>
+                </div>
+                <div class="form-group col-md-4 col-sm-6">
+                  <label for="residentName">Resident name</label>
+                  <input type="text" class="form-control" id="residentName" formControlName="residentName" disabled>
+                </div>
+                <div class="form-group col-md-4 col-sm-6">
+                  <label for="date">Date</label>
+                  <input type="text" class="form-control" id="date" bsDatepicker autocomplete="off" formControlName="date"
+                  [bsConfig]="datepickerConfig" disabled>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-4 col-sm-6">
+                  <label for="category">Category</label>
+                  <select id="category" class="form-control" formControlName="category" disabled>
+                    <option selected [ngValue]="null">Select</option>
+                    <option *ngFor="let item of complaintCategories; let i = index;" [value]="i">{{item}}</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-4 col-sm-6">
+                  <label for="status">Status</label>
+                  <select id="status" class="form-control" formControlName="status">
+                    <option selected [ngValue]="null">Select</option>
+                    <option *ngFor="let item of complaintStatuses; let i = index;" [value]="i+1">{{item}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label id="complaint">Complaint</label>
+                  <textarea class="form-control" id="complaint" row="4" formControlName="complaint" disabled></textarea>
+                </div>
+                <div class="form-group col-md-6">
+                    <label id="comment">Comments</label>
+                    <textarea class="form-control" id="comment" row="4" formControlName="Admincomments"></textarea>
+                  </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-2 col-sm-6 offset-md-8">
+                  <button class="btn btn-primary btn-block" *ngIf="!showLoader"><i class="fas fa-save"></i> &nbsp; Save</button>
+                  <div class="text-center" *ngIf="showLoader">
+                    <div class="spinner-border text-primary" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group col-md-2 col-sm-6">
+                    <button class="btn btn-secondary btn-block"
+                     (click)="onCancel()"><i class="fas fa-ban"></i> &nbsp; Cancel</button>
+                  </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
