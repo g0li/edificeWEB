@@ -19,6 +19,7 @@ import { NoticeComponent } from './pages/notice/notice.component';
 import { LoginComponent } from './auth/login/login.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 import { UserComplaintsComponent } from './pages/user-complaints/user-complaints.component';
+import { UserUserListComponent } from './pages/user-user-list/user-user-list.component';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -32,6 +33,7 @@ const appRoutes: Routes = [
       {path: 'userMaintenance', component: UserMaintenanceComponent},
       {path: 'userComplaints', component: UserComplaintsComponent},
       {path: 'userCreateComplaints', component: CreateComplaintComponent},
+      {path: 'userContacts', component: UserUserListComponent}
     ]
   },
   {path: 'notice', component: NoticeComponent},

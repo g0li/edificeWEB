@@ -67,11 +67,14 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('userToken', this.firebaseAuth.auth.currentUser.uid);
         }
       });
-      if (this.authService.isLoggedIn()) {
+      if (this.authService.isLoggedIn() && this.authService.isAdminLoggedIn()) {
+        this.alertify.success('Logged In');
         this.router.navigate(['/users']);
+      } else if (this.authService.isLoggedIn() && this.authService.isUserLoggedIn()) {
+        this.alertify.success('Logged In');
+        this.router.navigate(['/userProfile']);
       }
       this.showLoader = false;
-      this.alertify.success('Logged In');
     }
   )
   .catch( err => {

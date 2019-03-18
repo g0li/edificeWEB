@@ -1,18 +1,17 @@
-<div class="container-fluid">
-  <br/><br/>
+<div class="container-fluid mt-3">
   <div class="row">
     <div class="col-md-10 col-sm-6 text-primary">
-      <h3><i class="far fa-angry"></i>&nbsp;Complaints List</h3>
+      <h3><i class="icon-complaints"></i>&nbsp;Complaints List</h3>
     </div>
-    <div class="col-md-2 col-sm-6">
-      <button class="btn btn-primary btn-block" (click)="createComplaint()">
+    <div class="col-md-2 col-sm-6 text-center">
+      <button class="btn btn-primary" (click)="createComplaint()">
         <i class="fa fa-plus mr-2"></i>Create
       </button>
     </div>
   </div>
   <hr><br/>
   <div class="row" *ngIf="!showLoader">
-    <div class="col-md-4 col-sm-6">
+    <div class="col-md-3 col-sm-6">
       <label for="searchByUser">Title</label>
       <div class="input-group">
         <input type="text" class="form-control" id="searchByUser" [(ngModel)]="searchTitle">
@@ -53,7 +52,7 @@
               <td>{{ item.title }}</td>
               <td> {{ item.residentName }}</td>
               <td>{{ displayStatus(item.status) }}</td>
-              <td><i class="far fa-eye" style="cursor: pointer"
+              <td><i class="icon-details" style="cursor: pointer"
                 data-toggle="modal" data-target="#detailModal" (click)="showDetail(item)"></i></td>
               <!-- <td><i class="fas fa-pencil-alt" style="cursor: pointer" (click)="editComplaint(item.$key, item.$mainKey)"></i></td> -->
           </tr>
@@ -88,10 +87,10 @@
 <div class="modal" tabindex="-1" role="dialog" id="detailModal">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
-      <div class="modal-header bg-primary text-white">
-        <h5 class="modal-title"><i class="fas fa-user"></i> &nbsp; {{detailsComplaint?.title}} </h5>
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="icon-complaints"></i> &nbsp; {{detailsComplaint?.title}} </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true" class="text-white" >&times;</span>
+          <span aria-hidden="true" >&times;</span>
         </button>
       </div>
       <div class="modal-body">

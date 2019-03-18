@@ -3,4 +3,9 @@
 @import '../node_modules/bootswatch/dist/pulse/bootstrap.min.css';
 @import 'node_modules/ngx-bootstrap/datepicker/bs-datepicker.css';
 @import 'node_modules/alertifyjs/build/css/alertify.min.css';
+@import './assets/glyphter-font/css/64pt.css';
+
+ .icon-edit, .icon-residents, .icon-delete-button {
+  font-size: 1rem;
+}
 

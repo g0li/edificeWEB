@@ -37,6 +37,7 @@ import { UserMaintenanceComponent } from './pages/user-maintenance/user-maintena
 import { UserComplaintsComponent } from './pages/user-complaints/user-complaints.component';
 import { CreateComplaintComponent } from './pages/user-complaints/create-complaint/create-complaint.component';
 import { TestTemplateComponent } from './test-template/test-template.component';
+import { UserUserListComponent } from './pages/user-user-list/user-user-list.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { TestTemplateComponent } from './test-template/test-template.component';
     UserMaintenanceComponent,
     UserComplaintsComponent,
     CreateComplaintComponent,
-    TestTemplateComponent
+    TestTemplateComponent,
+    UserUserListComponent
   ],
   imports: [
     BrowserModule,

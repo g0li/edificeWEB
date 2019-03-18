@@ -1,18 +1,12 @@
-<div class="container-fluid">
-  <br/>
+<div class="container-fluid mt-3">
   <div class="row">
-    <div class="col-md-10 col-sm-6 text-primary">
-      <h3>
-        <i class="icon-residents" style="font-size: 2rem"></i> &nbsp; User List
+    <div class="col-md-12 col-sm-12">
+      <h3 class="text-primary">
+        <i class="icon-residents mr-2" style="font-size: 2rem"></i> Residents
       </h3>
     </div>
-    <div class="col-md-2 col-sm-6 d-flex justify-content-center">
-      <button class="btn btn-primary" (click)="onCreateUser()">
-        <i class="fa fa-plus"></i> &nbsp; New User
-      </button>
-    </div>
   </div>
-  <hr><br/>
+  <hr>
   <div class="row" *ngIf="!showListLoader">
     <div class="col-md-3 col-sm-6">
       <label>Resident name</label>
@@ -53,8 +47,6 @@
             <th>Flat</th>
             <th>Building</th>
             <th>Details</th>
-            <th>Edit</th>
-            <th>Remove</th>
           </tr>
         </thead>
         <tbody>
@@ -67,9 +59,6 @@
               <td>{{item.building}}</td>
               <td><i class="icon-details" style="cursor: pointer" (click)="showDetails(item)"
                 data-toggle="modal" data-target="#detailModal"></i></td>
-              <td><i class="icon-edit" style="cursor: pointer" (click)="editButtonClick(item.$key)"></i></td>
-              <td><i class="icon-delete-button text-danger" style="cursor: pointer" (click)="onRemoveUser(item.$key)"
-                data-toggle="modal" data-target="#deleteModal"></i></td>
           </tr>
         </tbody>
       </table>
@@ -98,31 +87,6 @@
   </div>
 </div>
 
-<!-- ####################################### User Deletion Confirmation Modal ####################################### -->
-
-<div class="modal" tabindex="-1" role="dialog" id="deleteModal">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-primary">
-        <h5 class="modal-title">Delete User</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Are you sure</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="RemoveUser();" data-dismiss="modal">Confirm</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onCancel()">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ####################################### User Deletion Confirmation Modal ####################################### -->
-
-
 <!-- ####################################### User Detail Confirmation Modal ####################################### -->
 
 <div class="modal" tabindex="-1" role="dialog" id="detailModal">
@@ -137,55 +101,55 @@
         <div class="modal-body">
           <div class="container-fluid">
             <div class="form-row">
-              <div class="form-group col-md-4 col-sm-6">
+              <div class="form-group col-md-3 col-sm-6">
                 <label for="name">Name</label>
                 <input type="text" class="form-control" value="{{detailedUser?.name}}" id="name" disabled>
               </div>
-              <div class="form-group col-md-4 col-sm-6">
+              <div class="form-group col-md-3 col-sm-6">
                   <label for="flat">Flat</label>
                   <input type="text" class="form-control" value="{{detailedUser?.flat}}" id="flat" disabled>
               </div>
-              <div class="form-group col-md-4 col-sm-6">
+              <div class="form-group col-md-3 col-sm-6">
                   <label for="buildingName">Building name</label>
                   <input type="text" class="form-control" value="{{detailedUser?.building}}" id="buildingName" disabled>
               </div>
-              <!-- <div class="form-group col-md-3 col-sm-6">
+              <div class="form-group col-md-3 col-sm-6">
                   <label for="carpet">Carpet Area</label>
                   <input type="text" class="form-control" value="{{detailedUser?.carpetarea}}" id="carpet" disabled>
-              </div> -->
+              </div>
             </div>
             <div class="form-row">
-              <!-- <div class="form-group col-md-3">
+              <div class="form-group col-md-3">
                 <label for="housetype">House type</label>
                 <input type="text" class="form-control" value="{{detailedUser?.housetype}}" id="housetype" disabled>
-              </div> -->
-              <div class="form-group col-md-4">
+              </div>
+              <div class="form-group col-md-3">
                   <label for="extraFeatures">Extra Features</label>
                   <input type="text" class="form-control" value="{{detailedUser?.extrafeatures}}" id="extraFeatures" disabled>
               </div>
-              <div class="form-group col-md-4">
+              <div class="form-group col-md-3">
                     <label for="parking">Parking</label>
                     <input type="text" class="form-control" value="{{detailedUser?.parking}}" id="parking" disabled>
               </div>
-              <div class="form-group col-md-4">
+              <div class="form-group col-md-3">
                       <label for="parkingslot">Parking slot no</label>
                       <input type="text" class="form-control" value="{{detailedUser?.slotno}}" id="parkingslot" disabled>
               </div>
             </div>
             <div class="form-row">
-                <!-- <div class="form-group col-md-3">
+                <div class="form-group col-md-3">
                   <label for="parkingsticker">Parking sticker no.</label>
                   <input type="text" class="form-control" value="{{detailedUser?.stickerno}}" id="parkingsticker" disabled>
-                </div> -->
-                <div class="form-group col-md-4">
+                </div>
+                <div class="form-group col-md-3">
                     <label for="vehicle">Vehicle Model</label>
                     <input type="text" class="form-control" value="{{detailedUser?.vmodel}}" id="vehicle" disabled>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                       <label for="wheelerType">2/4 Wheeler</label>
                       <input type="text" class="form-control" value="{{detailedUser?.twofourwheel}}" id="wheelerType" disabled>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                         <label for="email">Email Id</label>
                         <input type="text" class="form-control" value="{{detailedUser?.emailid}}" id="email" disabled>
                 </div>

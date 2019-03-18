@@ -2,7 +2,7 @@
   <br/>
   <div class="row">
     <div class="col-md-4 col-sm-6 text-primary">
-      <h3> <i class="fas fa-hammer"></i> Maintenance Notice List</h3>
+      <h3> <i class="icon-maintenaince mr-2"></i> Maintenance List</h3>
     </div>
     <!-- <div class="col-md-2 col-sm-6 offset-md-5">
       <button class="btn btn-primary btn-block" (click)="onCreate()">
@@ -10,8 +10,8 @@
       </button>
     </div> -->
   </div>
-  <hr>
-  <div class="row" *ngIf="!showLoader">
+  <!-- <hr>
+  <div class="row" *ngIf="!showLoader"> -->
     <!-- <div class="col-md-3 col-sm-6">
       <label for="searchByUser">Username</label>
       <div class="input-group">
@@ -21,7 +21,7 @@
         </div>
       </div>
     </div> -->
-    <div class="col-md-3 col-sm-6">
+    <!-- <div class="col-md-3 col-sm-6">
         <label for="searchByBuilding">Building</label>
         <div class="input-group">
           <input type="text" class="form-control" id="searchByBuilding" [(ngModel)]="searchBuilding">
@@ -47,9 +47,9 @@
             <span class="input-group-text"><i class="fas fa-search"></i></span>
           </div>
         </div>
-    </div>
-  </div>
-  <br/><br/>
+    </div> -->
+  <!-- </div> -->
+  <br/>
   <div class="row" *ngIf="!showLoader">
     <div class="col-md-12 col-sm-12 table-responsive">
       <table class="table table-hover">
@@ -73,7 +73,7 @@
             <td>{{item.header.flat}}</td>
             <td>{{item.header.date}}</td>
             <td>{{item.totalbill}}</td>
-            <td><i class="far fa-eye" style="cursor: pointer; font-size: 25px;"
+            <td><i class="icon-details" style="cursor: pointer;"
               data-toggle="modal" data-target="#downloadModal" (click)="onShowDetail(item, item.bill)"></i></td>
             <!-- <td><i class="far fa-file-pdf text-danger" style="cursor: pointer; font-size: 25px;" (click)="onShowDetail(item, item.bill);"></i></td> -->
           </tr>

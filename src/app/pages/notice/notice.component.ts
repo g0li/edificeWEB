@@ -15,6 +15,7 @@ export class NoticeComponent implements OnInit {
   noticeBoardList: Notice[] = [];
   showLoader = false;
   p = 1;
+  detailedNotice: Notice;
 
   private _searchTitle: string;
   filteredNoticeList: Notice[];
@@ -62,6 +63,10 @@ export class NoticeComponent implements OnInit {
   filterTitle(searchTitle: string) {
     return this.noticeBoardList.filter(list =>
       list.noticeTitle.toLowerCase().indexOf(searchTitle.toLowerCase()) !== -1);
+  }
+
+  onShowDetails(item: Notice) {
+    this.detailedNotice = item;
   }
 
 }

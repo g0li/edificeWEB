@@ -1,9 +1,8 @@
-<div class="container-fluid mt-5">
-    <br/>
+<div class="container-fluid mt-3">
     <div class="row">
       <div class="col-md-12">
         <div class="card border-0">
-          <h3 class="card-header bg-transparent text-primary"><i class="far fa-angry"></i>&nbsp;Complaint Details</h3>
+          <h3 class="card-header bg-transparent text-primary"><i class="icon-complaints"></i>&nbsp;Complaint Details</h3>
           <div class="card-body text-dark">
             <form [formGroup]="complaintForm" autocomplete="off" (ngSubmit)="onSubmit()" >
               <div class="form-row">
@@ -48,8 +47,8 @@
                   </div>
               </div>
               <div class="form-row">
-                <div class="form-group col-md-2 col-sm-6 offset-md-8">
-                  <button class="btn btn-primary btn-block" *ngIf="!showLoader"><i class="fas fa-save"></i> &nbsp; Save</button>
+                <div class="form-group col-md-2 col-sm-6">
+                  <button class="btn btn-primary btn-block" *ngIf="!showLoader"><i class="icon-submit"></i> &nbsp; Save</button>
                   <div class="text-center" *ngIf="showLoader">
                     <div class="spinner-border text-primary" role="status">
                       <span class="sr-only">Loading...</span>

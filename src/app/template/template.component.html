@@ -27,7 +27,7 @@
 
         </div> -->
         <a routerLink="/" routerLinkActive="active" class="list-group-item list-group-item-action bg-primary text-white"
-        *ngIf="!authService.isLoggedIn()"><i class="fas fa-sign-in-alt mr-3"></i>Login</a>
+        *ngIf="!authService.isLoggedIn()"><i class="icon-admin-login mr-3" style="font-size: 1rem"></i>Login</a>
 
 
 
@@ -36,27 +36,35 @@
 
 
         <a routerLink="/userProfile" routerLinkActive="active" class="list-group-item list-group-item-action bg-primary text-white"
-        *ngIf="authService.isLoggedIn() && authService.isUserLoggedIn()"><i class="fas fa-user-circle mr-3"></i>User Profile</a>
+        *ngIf="authService.isLoggedIn() && authService.isUserLoggedIn()"><i class="icon-profile mr-3" style="font-size: 1rem"></i>User Profile</a>
+
+
+        <a routerLink="/userContacts" routerLinkActive="active" class="list-group-item list-group-item-action bg-primary text-white"
+        *ngIf="authService.isLoggedIn() && authService.isUserLoggedIn()"><i class="icon-residents mr-3" style="font-size: 1rem"></i>Residents</a>
 
         <a routerLink="/userMaintenance" routerLinkActive="active" class="list-group-item list-group-item-action bg-primary text-white"
-        *ngIf="authService.isLoggedIn() && authService.isUserLoggedIn()"><i class="fas fa-tools mr-3"></i>Maintenance</a>
+        *ngIf="authService.isLoggedIn() && authService.isUserLoggedIn()"><i class="icon-maintenaince mr-3" style="font-size: 1rem"></i>Maintenance</a>
 
         <a routerLink="/userComplaints" routerLinkActive="active" class="list-group-item list-group-item-action bg-primary text-white"
-        *ngIf="authService.isLoggedIn() && authService.isUserLoggedIn()"><i class="far fa-angry mr-3"></i>Complaints</a>
+        *ngIf="authService.isLoggedIn() && authService.isUserLoggedIn()"><i class="icon-complaints mr-3" style="font-size: 1rem"></i>Complaints</a>
 
 
         <a routerLink="/users" routerLinkActive="active" class="list-group-item list-group-item-action bg-primary text-white"
-        *ngIf="authService.isLoggedIn()  &&  authService.isAdminLoggedIn()"><i class="fas fa-users mr-3"></i>Residents</a>
+        *ngIf="authService.isLoggedIn()  &&  authService.isAdminLoggedIn()"><i class="icon-residents mr-3" style="font-size: 1rem"></i>Residents</a>
 
         <a routerLink="/notice" routerLinkActive="active" class="list-group-item list-group-item-action bg-primary text-white"
         *ngIf="authService.isLoggedIn()  &&  authService.isAdminLoggedIn() || authService.isLoggedIn() && authService.isUserLoggedIn()">
-        <i class="fas fa-bullhorn mr-3"></i> Notice</a>
+        <i class="icon-notice mr-3" style="font-size: 1rem"></i> Notice</a>
 
         <a routerLink="/maintenanceList" routerLinkActive="active" class="list-group-item list-group-item-action bg-primary text-white"
-        *ngIf="authService.isLoggedIn()  &&  authService.isAdminLoggedIn()"> <i class="fas fa-tools mr-3"></i>Maintenance List</a>
+        *ngIf="authService.isLoggedIn()  &&  authService.isAdminLoggedIn()"> <i class="icon-maintenaince mr-3" style="font-size: 1rem"></i>Maintenance List</a>
 
         <a routerLink="/complaints" routerLinkActive="active" class="list-group-item list-group-item-action bg-primary text-white"
-        *ngIf="authService.isLoggedIn()  &&  authService.isAdminLoggedIn()"> <i class="far fa-angry mr-3"></i> Complaints</a>
+        *ngIf="authService.isLoggedIn()  &&  authService.isAdminLoggedIn()"> <i class="icon-complaints mr-3" style="font-size: 1rem"></i> Complaints</a>
+
+        <hr>
+        <a style="cursor: pointer" class="list-group-item list-group-item-action bg-primary text-white"
+        *ngIf="authService.isLoggedIn()" (click)="authService.logout()"> <i class="icon-log-out mr-3" style="font-size: 1rem"></i> Log Out</a>
 
       </div>
     </div>
@@ -65,15 +73,15 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
 
-      <nav class="navbar navbar-expand-lg navbar-dark bg-primary border-bottom">
-          <button class="btn btn-secondary" id="menu-toggle">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-white">
+          <button class="btn btn-primary" id="menu-toggle">
               <i class="fas fa-bars"></i>
           </button>
           <!-- <p style="text-align: center;" class=" ml-auto" *ngIf="authService.isLoggedIn()">{{authService?.userEmail}}</p> -->
           <!-- <p style="text-align: center;" class=" ml-auto" *ngIf="userloginService.isUserLoggedIn()">{{userloginService?.loggedInUser.name}}</p> -->
-          <p *ngIf="authService.isLoggedIn()"  class="ml-auto">
-              <button class="btn btn-secondary ml-3" (click)="onLogout()"><i class="fas fa-sign-out-alt mr-3"></i>Logout</button>
-          </p>
+          <!-- <p *ngIf="authService.isLoggedIn()"  class="ml-auto">
+              <button class="btn btn-primary ml-3" (click)="onLogout()"><i class="icon-log-out mr-3"></i>Logout</button>
+          </p> -->
           <!-- <p *ngIf="userloginService.isUserLoggedIn()" class="ml-auto">
               <button class="btn btn-secondary ml-3" (click)="userloginService.userLogout()"><i class="fas fa-sign-out-alt mr-3"></i>Logout</button>
           </p> -->
