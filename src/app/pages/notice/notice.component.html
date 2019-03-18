@@ -1,12 +1,12 @@
 <div class="container-fluid">
   <br/>
   <div class="row">
-    <div class="col-md-10 text-primary">
+    <div class="col-md-10 col-sm-6 text-primary">
       <h3>
         <i class="icon-notice"></i> &nbsp; Notices
        </h3>
     </div>
-    <div class="col-md-2 d-flex justify-content-center" *ngIf="authService.isLoggedIn()  &&  authService.isAdminLoggedIn()">
+    <div class="col-md-2" *ngIf="authService.isLoggedIn()  &&  authService.isAdminLoggedIn()">
       <button class="btn btn-primary" (click)="onCreateNotice()">
        <i class="fa fa-plus"></i> &nbsp; Create Notice
         </button>
