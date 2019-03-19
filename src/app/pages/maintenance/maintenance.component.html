@@ -157,11 +157,12 @@
         </button>
       </div>
       <div class="modal-body">
-        <form>
+        <form [formGroup]="bulkMaintenanceForm" (ngSubmit)="onBulkSubmit()">
           <div class="form-row">
             <div class="form-group col-md-6 col-sm-6">
               <label for="selectUsersList">Select Users</label>
-              <select id="selectUsersList" class="form-control" multiple [disabled]="selectAllUsers">
+              <select id="selectUsersList" class="form-control"
+              multiple [disabled]="this.selectAllUsers" formControlName="resident">
                 <option *ngFor="let item of userNameDD" [value]="item.userid">{{ item.username }}</option>
               </select>
             </div>
@@ -170,8 +171,8 @@
             </div>
             <div class="form-group col-md-4 col-sm-4 text-center">
               <div class="form-check mt-5">
-                <input type="checkbox" class="form-check-input" [(ngModel)]="selectAllUsers"
-                name="selectionAllUsers" (change)="checkValue($event)" id="allCheck">
+                <input type="checkbox" class="form-check-input" formControlName="selectAll"
+                 (change)="checkValue($event)" id="allCheck">
                 <label for="allCheck" class="form-check-label">Select All Users</label>
               </div>
             </div>
@@ -179,43 +180,47 @@
           <div class="form-row">
             <div class="form-group col-md-6 col-sm-6">
               <label for="selectBillFor">Bill for</label>
-              <select id="selectBillFor" class="form-control">
+              <select id="selectBillFor" class="form-control" formControlName="billfor">
                 <option [ngValue]="null">Select</option>
                 <option *ngFor="let item of billsFor" [value]="item">{{ item }}</option>
               </select>
             </div>
             <div class="form-group col-md-6 col-sm-6">
               <label for="selectMaintenanceDate">Date</label>
-              <input type="text" class="form-control" id="selectMaintenanceDate" bsDatepicker autocomplete="off" [bsConfig]="datepickerConfig">
+              <input type="text" class="form-control" id="selectMaintenanceDate"
+              bsDatepicker autocomplete="off" [bsConfig]="datepickerConfig"
+              formControlName="date">
             </div>
           </div>
-          <div class="form-row">
-            <div class="form-group col-sm-12 col-md-12">
+          <div class="form-row" formArrayName="bill">
+            <div class="form-group col-sm-12 col-md-12"
+            *ngFor="let item of bulkBillArray.controls; let i = index;" [formGroupName]="i">
               <div class="form-row">
                 <div class="form-group col-md-2 col-sm-2">
                   <label for="arrSrNo">Sr No</label>
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" [value]="i+1" disabled>
                 </div>
                 <div class="form-group col-md-6 col-sm-6">
                   <label for="arrParticulars">Particulars</label>
-                  <select id="arrParticulars" class="form-control">
+                  <select id="arrParticulars" class="form-control" formControlName="particular">
                     <option [ngValue]="null" selected> Select </option>
                     <option *ngFor="let pt of particulrs" [value]="pt.particular">{{ pt.particular }}</option>
                   </select>
                 </div>
                 <div class="form-group col-md-2 col-sm-2">
                   <label for="arrAmount">Amount</label>
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" formControlName="amount">
                 </div>
                 <div class="form-group col-md-1 col-sm-1">
                   <br/>
-                  <button class="btn btn-outline-primary mt-2">
+                  <button class="btn btn-outline-primary mt-2" (click)="addNewBillBulk()">
                     <i class="fa fa-plus"></i>
                   </button>
                 </div>
                 <div class="form-group col-md-1 col-sm-1">
                   <br/>
-                  <button class="btn btn-outline-danger mt-2">
+                  <button class="btn btn-outline-danger mt-2" (click)="removeBillBulk(i)"
+                  *ngIf="bulkBillArray.length > 1">
                     <i class="fa fa-trash"></i>
                   </button>
                 </div>
@@ -233,6 +238,13 @@
             <label for="subTotal" class="col-md-2 col-sm-4 offset-md-8 offset-sm-2 col-form-label text-primary">Total:</label>
             <div class="col-md-2 col-sm-6">
               <input type="text" class="form-control-plaintext" id="subTotal" value="100" disabled>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-2 col-sm-6">
+              <button class="btn btn-primary" type="submit" [disabled]="!bulkMaintenanceForm.valid">
+                <i class="icon-submit mr-2"></i> Submit
+              </button>
             </div>
           </div>
         </form>
