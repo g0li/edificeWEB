@@ -49,11 +49,18 @@
              <td>{{item.date}}</td>
              <td>{{item.noticeType}}</td>
              <td>
-               <i class="icon-details" style="cursor: pointer" (click)="onShowDetails(item)"
-               data-toggle="modal" data-target="#detailModal"></i>
+               <!-- <i class="icon-details" style="cursor: pointer" (click)="onShowDetails(item)"
+               data-toggle="modal" data-target="#detailModal"></i> -->
+               <button class="btn btn-secondary" style="border-radius: 4px;" (click)="onShowDetails(item)"
+               data-toggle="modal" data-target="#detailModal">
+                 Details
+               </button>
              </td>
              <td *ngIf="authService.isLoggedIn()  &&  authService.isAdminLoggedIn()">
-               <i class="icon-edit" style="cursor: pointer" (click)="editButtonClick(item.$key)"></i></td>
+               <!-- <i class="icon-edit" style="cursor: pointer" (click)="editButtonClick(item.$key)"></i></td> -->
+               <button class="btn btn-outline-primary" style="border-radius: 4px;" (click)="editButtonClick(item.$key)">
+                Edit
+              </button>
            </tr>
          </tbody>
        </table>

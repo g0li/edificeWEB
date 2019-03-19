@@ -70,6 +70,6 @@ signup(email: string, password: string) {
   }
 
   getUserEmail() {
-    this.userEmail = this.firebaseAuth.auth.currentUser.email;
+    return this.firebaseAuth.auth.currentUser.email;
   }
 }

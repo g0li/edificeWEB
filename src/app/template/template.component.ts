@@ -1,5 +1,5 @@
 import { AuthService } from 'src/app/Services/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { UserLoginService } from '../Services/user-login.service';
 
 declare var $: any;
@@ -9,7 +9,7 @@ declare var $: any;
   styleUrls: ['./template.component.css']
 })
 export class TemplateComponent implements OnInit {
-
+  userEmail;
   constructor(public authService: AuthService, public userloginService: UserLoginService) { }
 
   ngOnInit() {
@@ -17,7 +17,13 @@ export class TemplateComponent implements OnInit {
       e.preventDefault();
       $('#wrapper').toggleClass('toggled');
     });
+
+    this.userEmail = this.authService.getUserEmail();
   }
+
+  // ngDoCheck() {
+  //   this.userEmail = this.authService.getUserEmail();
+  // }
   onLogout() {
     this.authService.logout();
   }

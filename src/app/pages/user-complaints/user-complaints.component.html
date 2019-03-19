@@ -52,8 +52,15 @@
               <td>{{ item.title }}</td>
               <td> {{ item.residentName }}</td>
               <td>{{ displayStatus(item.status) }}</td>
-              <td><i class="icon-details" style="cursor: pointer"
-                data-toggle="modal" data-target="#detailModal" (click)="showDetail(item)"></i></td>
+              <td>
+                <!-- <i class="icon-details" style="cursor: pointer"
+                data-toggle="modal" data-target="#detailModal" (click)="showDetail(item)"></i> -->
+                <button class="btn btn-secondary" style="border-radius: 4px;"
+                (click)="showDetail(item)"
+                data-toggle="modal" data-target="#detailModal">
+                  Details
+                </button>
+              </td>
               <!-- <td><i class="fas fa-pencil-alt" style="cursor: pointer" (click)="editComplaint(item.$key, item.$mainKey)"></i></td> -->
           </tr>
         </tbody>

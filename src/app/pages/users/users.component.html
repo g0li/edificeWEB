@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-md-10 col-sm-6 text-primary">
       <h3>
-        <i class="icon-residents"></i> &nbsp; User List
+        <i class="icon-residents mr-2" style="font-size: 2rem;"></i> &nbsp; User List
       </h3>
     </div>
     <div class="col-md-2 col-sm-6">
@@ -53,7 +53,7 @@
             <th>Flat</th>
             <th>Building</th>
             <th>Details</th>
-            <th>Edit</th>
+            <th>Modify</th>
             <th>Remove</th>
           </tr>
         </thead>
@@ -65,11 +65,28 @@
               <td>{{item.name}}</td>
               <td>{{item.flat}}</td>
               <td>{{item.building}}</td>
-              <td><i class="icon-details" style="cursor: pointer" (click)="showDetails(item)"
-                data-toggle="modal" data-target="#detailModal"></i></td>
-              <td><i class="icon-edit" style="cursor: pointer" (click)="editButtonClick(item.$key)"></i></td>
-              <td><i class="icon-delete-button text-danger" style="cursor: pointer" (click)="onRemoveUser(item.$key)"
-                data-toggle="modal" data-target="#deleteModal"></i></td>
+              <td>
+                <!-- <i class="icon-details" style="cursor: pointer" (click)="showDetails(item)"
+                data-toggle="modal" data-target="#detailModal"></i> -->
+                <button class="btn btn-secondary" style="border-radius: 4px;" (click)="showDetails(item)"
+                data-toggle="modal" data-target="#detailModal">
+                  Details
+                </button>
+              </td>
+              <td>
+                <!-- <i class="icon-edit" style="cursor: pointer" (click)="editButtonClick(item.$key)"></i> -->
+                <button class="btn btn-outline-primary" style="border-radius: 4px;" (click)="editButtonClick(item.$key)">
+                  Modify
+                </button>
+              </td>
+              <td>
+                <!-- <i class="icon-delete-button text-danger" style="cursor: pointer" (click)="onRemoveUser(item.$key)"
+                data-toggle="modal" data-target="#deleteModal"></i> -->
+                <button class="btn btn-outline-danger" style="border-radius: 4px;" (click)="onRemoveUser(item.$key)"
+                data-toggle="modal" data-target="#deleteModal">
+                  Remove
+                </button>
+              </td>
           </tr>
         </tbody>
       </table>

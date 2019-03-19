@@ -73,8 +73,15 @@
             <td>{{item.header.flat}}</td>
             <td>{{item.header.date}}</td>
             <td>{{item.totalbill}}</td>
-            <td><i class="icon-details" style="cursor: pointer;"
-              data-toggle="modal" data-target="#downloadModal" (click)="onShowDetail(item, item.bill)"></i></td>
+            <td>
+              <!-- <i class="icon-details" style="cursor: pointer;"
+              data-toggle="modal" data-target="#downloadModal" (click)="onShowDetail(item, item.bill)"></i> -->
+              <button class="btn btn-secondary" style="border-radius: 4px;"
+                (click)="onShowDetail(item, item.bill)"
+                data-toggle="modal" data-target="#downloadModal">
+                  Details
+                </button>
+            </td>
             <!-- <td><i class="far fa-file-pdf text-danger" style="cursor: pointer; font-size: 25px;" (click)="onShowDetail(item, item.bill);"></i></td> -->
           </tr>
         </tbody>

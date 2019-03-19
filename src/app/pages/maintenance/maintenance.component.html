@@ -1,10 +1,15 @@
 <div class="container-fluid">
   <br/>
   <div class="row">
-    <div class="col-md-12 col-sm-12 text-primary">
+    <div class="col-md-10 col-sm-6 text-primary">
       <h3>
         <i class="icon-maintenaince"></i> &nbsp; Create Maintenance
       </h3>
+    </div>
+    <div class="col-md-2 col-sm-6">
+      <button class="btn btn-primary" data-toggle="modal" data-target="#bulkModal">
+        Create Bulk Maintenance
+      </button>
     </div>
   </div>
   <hr><br/>
@@ -117,7 +122,7 @@
             </table>
           </div>
           <div class="col-md-2 col-sm-6 offset-md-7">
-            <button class="btn btn-primary btn-block" (click)="onSubmit()" *ngIf="!showLoader">
+            <button class="btn btn-primary btn-block" (click)="onSubmit()" *ngIf="!showLoader" [disabled]="!maintenanceForm.valid">
               <i class="icon-submit"></i> &nbsp; Submit
             </button>
 
@@ -138,3 +143,103 @@
     </div>
   </div>
 </div>
+
+
+<!-- ####################################### Bulk Maintenance ####################################### -->
+
+<div class="modal" tabindex="-1" role="dialog" id="bulkModal">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-primary"><i class="icon-maintenaince"></i> &nbsp; Bulk Maintenance</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" >&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-row">
+            <div class="form-group col-md-6 col-sm-6">
+              <label for="selectUsersList">Select Users</label>
+              <select id="selectUsersList" class="form-control" multiple [disabled]="selectAllUsers">
+                <option *ngFor="let item of userNameDD" [value]="item.userid">{{ item.username }}</option>
+              </select>
+            </div>
+            <div class="form-group col-md-2 col-sm-2 text-center">
+              <label class="text-primary mt-5" style="font-weight: 800">OR</label>
+            </div>
+            <div class="form-group col-md-4 col-sm-4 text-center">
+              <div class="form-check mt-5">
+                <input type="checkbox" class="form-check-input" [(ngModel)]="selectAllUsers"
+                name="selectionAllUsers" (change)="checkValue($event)" id="allCheck">
+                <label for="allCheck" class="form-check-label">Select All Users</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6 col-sm-6">
+              <label for="selectBillFor">Bill for</label>
+              <select id="selectBillFor" class="form-control">
+                <option [ngValue]="null">Select</option>
+                <option *ngFor="let item of billsFor" [value]="item">{{ item }}</option>
+              </select>
+            </div>
+            <div class="form-group col-md-6 col-sm-6">
+              <label for="selectMaintenanceDate">Date</label>
+              <input type="text" class="form-control" id="selectMaintenanceDate" bsDatepicker autocomplete="off" [bsConfig]="datepickerConfig">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-sm-12 col-md-12">
+              <div class="form-row">
+                <div class="form-group col-md-2 col-sm-2">
+                  <label for="arrSrNo">Sr No</label>
+                  <input type="text" class="form-control">
+                </div>
+                <div class="form-group col-md-6 col-sm-6">
+                  <label for="arrParticulars">Particulars</label>
+                  <select id="arrParticulars" class="form-control">
+                    <option [ngValue]="null" selected> Select </option>
+                    <option *ngFor="let pt of particulrs" [value]="pt.particular">{{ pt.particular }}</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-2 col-sm-2">
+                  <label for="arrAmount">Amount</label>
+                  <input type="text" class="form-control">
+                </div>
+                <div class="form-group col-md-1 col-sm-1">
+                  <br/>
+                  <button class="btn btn-outline-primary mt-2">
+                    <i class="fa fa-plus"></i>
+                  </button>
+                </div>
+                <div class="form-group col-md-1 col-sm-1">
+                  <br/>
+                  <button class="btn btn-outline-danger mt-2">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="form-group row">
+            <label for="subTotal" class="col-md-2 col-sm-4 offset-md-8 offset-sm-2 col-form-label text-primary">Interest:</label>
+            <div class="col-md-2 col-sm-6">
+              <input type="text" class="form-control-plaintext" id="subTotal" value="100" disabled>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="subTotal" class="col-md-2 col-sm-4 offset-md-8 offset-sm-2 col-form-label text-primary">Total:</label>
+            <div class="col-md-2 col-sm-6">
+              <input type="text" class="form-control-plaintext" id="subTotal" value="100" disabled>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ####################################### Bulk Maintenance ####################################### -->
+

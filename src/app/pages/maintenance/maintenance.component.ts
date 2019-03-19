@@ -16,6 +16,7 @@ import { Particulars } from '../models/particulars.model';
 export class MaintenanceComponent implements OnInit {
 
   maintenanceForm: FormGroup;
+  bulkMaintenanceForm: FormGroup;
   userNameDD = [];
   selectedUserName: any;
   selectedUserHouseType: any;
@@ -31,6 +32,9 @@ export class MaintenanceComponent implements OnInit {
   amount = 0;
   autoTotalAmount = 0;
 
+  // Bulk
+  selectAllUsers = false;
+
   constructor(private _fb: FormBuilder, private mtcService: MaintenanceService,
       private userService: UserService, private alertify: AlertifyService,
         private router: Router) {
@@ -45,13 +49,13 @@ export class MaintenanceComponent implements OnInit {
     this.getParticulars();
     this.getBillsFor();
     this.maintenanceForm = this._fb.group({
-      resident: [],
-      flat: [],
-      housetype: [],
-      carpetarea: [],
-      billfor: [],
-      date: [],
-      building: [],
+      resident: [null, Validators.required],
+      flat: ['', Validators.required],
+      housetype: ['', Validators.required],
+      carpetarea: ['', Validators.required],
+      billfor: [null, Validators.required],
+      date: ['', Validators.required],
+      building: ['', Validators.required],
       bill: this._fb.array([this.addBillGroup()]),
       id: [],
       interest: [],
@@ -60,6 +64,12 @@ export class MaintenanceComponent implements OnInit {
       status: ['Posted'],
       subtotal: [this.autoTotalAmount],
       totalbill: [0]
+    });
+
+    this.bulkMaintenanceForm = this._fb.group({
+      resident: new FormArray([]),
+      billfor: [null, Validators.required],
+      date: ['', Validators.required]
     });
 
     this.mtcService.userNameDD().subscribe((item => {
@@ -98,7 +108,7 @@ export class MaintenanceComponent implements OnInit {
 
   addBillGroup() {
     return this._fb.group({
-      particular: [],
+      particular: [null, Validators.required],
       amount: [this.amount]
     });
   }
@@ -241,6 +251,10 @@ export class MaintenanceComponent implements OnInit {
     this.autoTotalAmount = totalA;
     this.maintenanceForm.get('subtotal').patchValue(this.autoTotalAmount);
     this.maintenanceForm.get('totalbill').patchValue(this.autoTotalAmount);
+  }
+
+  checkValue(event: any) {
+    this.selectAllUsers = event.currentTarget.checked;
   }
 
 }
