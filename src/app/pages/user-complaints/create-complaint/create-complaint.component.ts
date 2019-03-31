@@ -4,7 +4,7 @@ import { ComplaintsService } from './../../../Services/complaints.service';
 import { Complaints } from './../../models/complaints.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BsDatepickerConfig } from 'ngx-bootstrap';
 import { DatePipe } from '@angular/common';
 
@@ -42,11 +42,11 @@ export class CreateComplaintComponent implements OnInit {
     });
 
     this.complaintForm = this._fb.group({
-      title: [],
+      title: ['', Validators.required],
       residentName: [],
-      date: [],
+      date: ['', Validators.required],
       category: [],
-      complaint: [],
+      complaint: ['', Validators.required],
     });
 
     this.complaintService.getComplaintStatus().subscribe(

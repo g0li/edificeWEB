@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid mt-5 ml-md-5">
   <br/>
   <div class="row">
     <div class="col-md-10 col-sm-6 text-primary">
@@ -6,11 +6,11 @@
         <i class="icon-maintenaince"></i> &nbsp; Create Maintenance
       </h3>
     </div>
-    <div class="col-md-2 col-sm-6">
+    <!-- <div class="col-md-2 col-sm-6">
       <button class="btn btn-primary" data-toggle="modal" data-target="#bulkModal">
         Create Bulk Maintenance
       </button>
-    </div>
+    </div> -->
   </div>
   <hr><br/>
   <div class="row">
@@ -72,7 +72,7 @@
               </div>
               <div class="form-group col-md-2 col-sm-6">
                 <label>Amount</label>
-                <input type="text" class="form-control" formControlName="amount">
+                <input type="text" class="form-control" formControlName="amount" disabled>
               </div>
               <div class="form-group col-md-1 col-sm-6" style="text-align: right">
                 <br/>
@@ -134,7 +134,7 @@
 
           </div>
           <div class="col-md-2 col-sm-6">
-              <button class="btn btn-outline-secondary btn-block" (click)="onCancel()">
+              <button class="btn btn-outline-primary btn-block" (click)="onCancel()">
                 <i class="fa fa-ban"></i> &nbsp; Cancel
               </button>
             </div>
@@ -147,7 +147,7 @@
 
 <!-- ####################################### Bulk Maintenance ####################################### -->
 
-<div class="modal" tabindex="-1" role="dialog" id="bulkModal">
+<!-- <div class="modal" tabindex="-1" role="dialog" id="bulkModal">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -202,7 +202,7 @@
                 </div>
                 <div class="form-group col-md-6 col-sm-6">
                   <label for="arrParticulars">Particulars</label>
-                  <select id="arrParticulars" class="form-control" formControlName="particular">
+                  <select id="arrParticulars" class="form-control" formControlName="particular" (change)="onBulkParticularSelect($event, i)">
                     <option [ngValue]="null" selected> Select </option>
                     <option *ngFor="let pt of particulrs" [value]="pt.particular">{{ pt.particular }}</option>
                   </select>
@@ -213,13 +213,13 @@
                 </div>
                 <div class="form-group col-md-1 col-sm-1">
                   <br/>
-                  <button class="btn btn-outline-primary mt-2" (click)="addNewBillBulk()">
+                  <button class="btn btn-outline-primary mt-2" (click)="addNewBillBulk()" type="button">
                     <i class="fa fa-plus"></i>
                   </button>
                 </div>
                 <div class="form-group col-md-1 col-sm-1">
                   <br/>
-                  <button class="btn btn-outline-danger mt-2" (click)="removeBillBulk(i)"
+                  <button class="btn btn-outline-danger mt-2" (click)="removeBillBulk(i)" type="button"
                   *ngIf="bulkBillArray.length > 1">
                     <i class="fa fa-trash"></i>
                   </button>
@@ -231,13 +231,13 @@
           <div class="form-group row">
             <label for="subTotal" class="col-md-2 col-sm-4 offset-md-8 offset-sm-2 col-form-label text-primary">Interest:</label>
             <div class="col-md-2 col-sm-6">
-              <input type="text" class="form-control-plaintext" id="subTotal" value="100" disabled>
+              <input type="text" class="form-control-plaintext" id="subTotal" value="0" disabled>
             </div>
           </div>
           <div class="form-group row">
             <label for="subTotal" class="col-md-2 col-sm-4 offset-md-8 offset-sm-2 col-form-label text-primary">Total:</label>
             <div class="col-md-2 col-sm-6">
-              <input type="text" class="form-control-plaintext" id="subTotal" value="100" disabled>
+              <input type="text" class="form-control-plaintext" id="subTotal" formControlName="total" disabled>
             </div>
           </div>
           <div class="form-row">
@@ -251,7 +251,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 <!-- ####################################### Bulk Maintenance ####################################### -->
 

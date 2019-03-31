@@ -39,7 +39,7 @@
         *ngIf="authService.isLoggedIn() && authService.isUserLoggedIn()"><i class="icon-profile mr-3" style="font-size: 1rem"></i>User Profile</a>
 
 
-        <a routerLink="/userContacts" routerLinkActive="active" class="list-group-item list-group-item-action bg-primary text-white"
+        <a routerLink="/userContacts" routerLinkActive="active" class="list-group-item list-group-item-action bg-primary text-white" (click)="toggleMenu()"
         *ngIf="authService.isLoggedIn() && authService.isUserLoggedIn()"><i class="icon-residents mr-3" style="font-size: 1rem"></i>Residents</a>
 
         <a routerLink="/userMaintenance" routerLinkActive="active" class="list-group-item list-group-item-action bg-primary text-white"
@@ -77,7 +77,7 @@
           <button class="btn btn-primary" id="menu-toggle">
               <i class="fas fa-bars"></i>
           </button>
-          <ul class="navbar-nav ml-auto mr-5">
+          <!-- <ul class="navbar-nav ml-auto mr-5">
               <li class="nav-item">
                 <a class="nav-link text-primary">Contact team</a>
               </li>
@@ -94,7 +94,7 @@
                   <a class="dropdown-item">Upload Reciept</a>
                 </div>
               </li>
-            </ul>
+            </ul> -->
           <!-- <p style="text-align: center;" class="text-primary ml-auto" *ngIf="authService.isLoggedIn()">{{userEmail}}</p> -->
           <!-- <p style="text-align: center;" class=" ml-auto" *ngIf="userloginService.isUserLoggedIn()">{{userloginService?.loggedInUser.name}}</p> -->
           <!-- <p *ngIf="authService.isLoggedIn()"  class="ml-auto">

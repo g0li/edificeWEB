@@ -1,5 +1,4 @@
-<div class="container-fluid mt-5">
-  <br/>
+<div class="container-fluid mt-5 ml-md-5">
   <div class="row">
     <div class="col-md-12">
       <div class="card border-0">
@@ -8,22 +7,29 @@
           <form [formGroup]="complaintForm" autocomplete="off" (ngSubmit)="onSubmit()" >
             <div class="form-row">
               <div class="form-group col-md-4 col-sm-6">
-                <label for="title">Title</label>
+                <label for="title">Title*</label>
                 <input type="text" class="form-control" id="title" formControlName="title">
+                <div class="form-text text-danger" *ngIf="complaintForm.get('title').invalid && complaintForm.get('title').touched">
+                  This field cannot be blank.
+                </div>
               </div>
               <div class="form-group col-md-4 col-sm-6">
                 <label for="residentName">Resident name</label>
                 <input type="text" class="form-control" id="residentName" formControlName="residentName" disabled [value]="userName">
+
               </div>
               <div class="form-group col-md-4 col-sm-6">
-                <label for="date">Date</label>
+                <label for="date">Date*</label>
                 <input type="text" class="form-control" id="date" bsDatepicker autocomplete="off" formControlName="date"
                 [bsConfig]="datepickerConfig">
+                <div class="form-text text-danger" *ngIf="complaintForm.get('date').invalid && complaintForm.get('date').touched">
+                  This field cannot be blank.
+                </div>
               </div>
             </div>
             <div class="form-row">
               <div class="form-group col-md-4 col-sm-6">
-                <label for="category">Category</label>
+                <label for="category">Category*</label>
                 <select id="category" class="form-control" formControlName="category">
                   <option selected [ngValue]="null">Select</option>
                   <option *ngFor="let item of complaintCategories; let i = index;" [value]="i">{{item}}</option>
@@ -38,8 +44,11 @@
             <!-- </div> -->
             <!-- <div class="form-row"> -->
               <div class="form-group col-md-6">
-                <label id="complaint">Complaint</label>
+                <label id="complaint">Complaint*</label>
                 <textarea class="form-control" id="complaint" row="4" formControlName="complaint"></textarea>
+                <div class="form-text text-danger" *ngIf="complaintForm.get('complaint').invalid && complaintForm.get('complaint').touched">
+                  This field cannot be blank.
+                </div>
               </div>
               <!-- <div class="form-group col-md-6">
                   <label id="comment">Comments</label>
@@ -48,7 +57,7 @@
             </div>
             <div class="form-row">
               <div class="form-group col-md-2 col-sm-6 offset-md-8">
-                <button class="btn btn-primary btn-block" *ngIf="!showLoader"><i class="fas fa-save"></i> &nbsp; Submit</button>
+                <button class="btn btn-primary btn-block" *ngIf="!showLoader" [disabled]="!complaintForm.valid"><i class="fas fa-save"></i> &nbsp; Submit</button>
                 <div class="text-center" *ngIf="showLoader">
                   <div class="spinner-border text-primary" role="status">
                     <span class="sr-only">Loading...</span>
@@ -56,7 +65,7 @@
                 </div>
               </div>
               <div class="form-group col-md-2 col-sm-6">
-                  <button class="btn btn-secondary btn-block"
+                  <button class="btn btn-outline-primary btn-block"
                    (click)="onCancel()"><i class="fas fa-ban"></i> &nbsp; Cancel</button>
                 </div>
             </div>

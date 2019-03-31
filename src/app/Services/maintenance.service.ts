@@ -37,8 +37,47 @@ constructor(private db: AngularFireDatabase) { }
     delete data['housetype'];
     delete data['resident'];
     delete data['billfor'];
-
     return this.db.object('demo-edifice/maintenance/' + path + '/' + count).set({... data, header});
+  }
+
+
+  createBulkMaintenance(data: any) {
+    console.log(data);
+    delete data['resident'];
+    delete data['selectAll'];
+    const totalbill = data['total'];
+    const path = data['path'];
+    const count = data['count'];
+
+
+    const header = {
+      building: data['building'],
+      date: data['date'],
+      flat: data['flat'],
+      carpetarea: data['carpetarea'],
+      housetype: data['housetype'],
+      resident: data['residentName'],
+      billfor: data['billfor']
+    };
+
+    delete data['building'];
+    delete data['date'];
+    delete data['flat'];
+    delete data['carpetarea'];
+    delete data['housetype'];
+    delete data['residentName'];
+    delete data['billfor'];
+    delete data['path'];
+    delete data['count'];
+    delete data['total'];
+
+    data['status'] = 'created';
+    data['totalbull'] = totalbill;
+    data['interest'] = 0;
+    data['pending'] = 0;
+    data['subtotal'] = 0;
+
+    console.log({...data, header});
   }
 
   getUserMaintenanceCount(id) {

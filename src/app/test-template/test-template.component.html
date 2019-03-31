@@ -1,39 +1,81 @@
-<div id="wrapper">
+<!--    Made by Erik Terwan    -->
+<!--   24th of November 2015   -->
+<!--        MIT License        -->
+<nav role="navigation">
+  <div id="menuToggle">
+    <!--
+    A fake / hidden checkbox is used as click reciever,
+    so you can use the :checked selector on it.
+    -->
+    <input type="checkbox" />
 
-    <aside id="sidebar-wrapper">
-      <div class="sidebar-brand">
-        <h2>Logo</h2>
-      </div>
-      <ul class="sidebar-nav">
-        <li class="active">
-          <a href="#"><i class="fa fa-home"></i>Home</a>
-        </li>
-        <li>
-          <a href="#"><i class="fa fa-plug"></i>Plugins</a>
-        </li>
-        <li>
-          <a href="#"><i class="fa fa-user"></i>Users</a>
-        </li>
-      </ul>
-    </aside>
+    <!--
+    Some spans to act as a hamburger.
 
-    <div id="navbar-wrapper">
-      <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <a href="#" class="navbar-brand" id="sidebar-toggle"><i class="fa fa-bars"></i></a>
+    They are acting like a real hamburger,
+    not that McDonalds stuff.
+    -->
+    <span></span>
+    <span></span>
+    <span></span>
+
+    <!--
+    Too bad the menu has to be inside of the button
+    but hey, it's pure CSS magic.
+    -->
+    <ul id="menu">
+      <a routerLink="/" routerLinkActive="active" *ngIf="!authService.isLoggedIn()">
+        <li><i class="icon-admin-login mr-3" style="font-size: 1rem"></i>Login</li>
+      </a>
+      <a routerLink="/userProfile" routerLinkActive="active" *ngIf="authService.isLoggedIn() && authService.isUserLoggedIn()">
+        <li><i class="icon-profile mr-3" style="font-size: 1rem"></i>User Profile</li>
+      </a>
+      <a routerLink="/userContacts" routerLinkActive="active" *ngIf="authService.isLoggedIn() && authService.isUserLoggedIn()">
+        <li><i class="icon-residents mr-3" style="font-size: 1rem"></i>Residents</li>
+      </a>
+      <a routerLink="/userMaintenance" routerLinkActive="active" *ngIf="authService.isLoggedIn() && authService.isUserLoggedIn()">
+        <li><i class="icon-maintenaince mr-3" style="font-size: 1rem"></i>Maintenance</li>
+      </a>
+      <a routerLink="/userComplaints" routerLinkActive="active" *ngIf="authService.isLoggedIn() && authService.isUserLoggedIn()">
+        <li><i class="icon-complaints mr-3" style="font-size: 1rem"></i>Complaints</li>
+      </a>
+      <a routerLink="/users" routerLinkActive="active"  *ngIf="authService.isLoggedIn()  &&  authService.isAdminLoggedIn()">
+        <li><i class="icon-residents mr-3" style="font-size: 1rem"></i>Residents</li>
+      </a>
+      <a routerLink="/notice" routerLinkActive="active" *ngIf="authService.isLoggedIn()  &&  authService.isAdminLoggedIn() || authService.isLoggedIn() && authService.isUserLoggedIn()">
+        <li><i class="icon-notice mr-3" style="font-size: 1rem"></i> Notice</li>
+      </a>
+      <a routerLink="/maintenanceList" routerLinkActive="active" *ngIf="authService.isLoggedIn()  &&  authService.isAdminLoggedIn()">
+        <li><i class="icon-maintenaince mr-3" style="font-size: 1rem"></i>Maintenance</li>
+      </a>
+      <a routerLink="/complaints" routerLinkActive="active" *ngIf="authService.isLoggedIn()  &&  authService.isAdminLoggedIn()">
+        <li><i class="icon-complaints mr-3" style="font-size: 1rem"></i> Complaints</li>
+      </a>
+      <!-- <a style="cursor: pointer;" routerLinkActive="active" *ngIf="authService.isLoggedIn()" style="color: #fff; cursor: pointer;" (click)="authService.logout()">
+        <li><i class="icon-log-out mr-3" style="font-size: 1rem"></i> Log Out</li>
+      </a> --><br>
+      <button class="btn btn-outline-default btn-block mt-2" *ngIf="authService.isLoggedIn()" (click)="authService.logout()" style="background: #fff; color: #5900b3;">
+        <i class="icon-log-out mr-1"></i> Logout
+      </button>
+      <hr><br>
+      <a href="https://www.lilliemountain.com/edifice.html#contact" target="new">
+        <li><i class="fas fa-users mr-2"></i>Contact Team</li>
+      </a>
+      <a href="https://www.lilliemountain.com/edifice.html" target="new">
+        <li><i class="fas fa-share mr-2"></i>Share and Earn</li>
+      </a>
+
+      <!-- <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Payment
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" routerLink="/" routerLinkActive="active">Online</a>
+            <a class="dropdown-item" routerLink="/" routerLinkActive="active">Upload Reciept</a>
           </div>
-        </div>
-      </nav>
-    </div>
+        </div> -->
 
-    <section id="content-wrapper">
-        <div class="row">
-          <div class="col-lg-12">
-            <h2 class="content-title">Test</h2>
-            <p>Lorem ipsum...</p>
-          </div>
-        </div>
-    </section>
-
+    </ul>
   </div>
+</nav>
+<router-outlet></router-outlet>

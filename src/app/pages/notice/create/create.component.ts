@@ -2,7 +2,7 @@ import { Notice } from './../../models/notice.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AlertifyService } from './../../../Services/alertify.service';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { NoticeService } from 'src/app/Services/notice.service';
 import { DatePipe } from '@angular/common';
@@ -34,10 +34,10 @@ export class CreateComponent implements OnInit {
     this.noticeService.getNoticeBoardCount();
     this.noticeService.getNoticeBoardList();
     this.noticeForm = this._fb.group({
-      noticeTitle: [],
-      date: [],
-      noticeType: [],
-      noticeText: []
+      noticeTitle: ['', Validators.required],
+      date: ['', Validators.required],
+      noticeType: ['', Validators.required],
+      noticeText: ['', Validators.required]
     });
 
     this.route.paramMap.subscribe(

@@ -2,10 +2,9 @@ import { User } from './../../models/user.model';
 import { AlertifyService } from './../../../Services/alertify.service';
 
 import { UserService } from './../../../Services/users.service';
-import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DISABLED } from '@angular/forms/src/model';
 
 @Component({
   selector: 'app-create-user',
@@ -42,22 +41,22 @@ export class CreateUserComponent implements OnInit {
     this.loadSalution();
     this.userService.getMainUserList();
     this.userForm = this._fb.group({
-      salutationid: [],
-      name: [],
-      flat: [],
-      building: [],
-      housetype: [],
-      parking: [],
+      salutationid: [null, Validators.required],
+      name: ['', Validators.required],
+      flat: ['', Validators.required],
+      building: ['', Validators.required],
+      housetype: ['', Validators.required],
+      parking: ['true', Validators.required],
       selectionFeature: this.addExtraFeatureControls(),
-      slotno: [],
-      stickerno: [],
-      vmodel: [],
-      twofourwheel: [],
-      mobile: [],
-      emailid: [],
-      landline: [],
-      password: [],
-      carpetarea: []
+      slotno: [''],
+      stickerno: [''],
+      vmodel: [''],
+      twofourwheel: ['4'],
+      mobile: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('^[0-9]*$')]],
+      emailid: ['', [Validators.required, Validators.email]],
+      landline: [''],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      carpetarea: [0, Validators.required]
     });
 
     this.route.paramMap.subscribe(params => {

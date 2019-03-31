@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/Services/auth.service';
 import { Component, OnInit } from '@angular/core';
 declare const $: any;
 @Component({
@@ -7,13 +8,9 @@ declare const $: any;
 })
 export class TestTemplateComponent implements OnInit {
 
-  constructor() { }
+  constructor(public authService: AuthService) { }
 
   ngOnInit() {
-    $('#sidebar-toggle').click(function(e) {
-      e.preventDefault();
-      $('#wrapper').toggleClass('toggled');
-  });
   }
 
 }

@@ -31,9 +31,10 @@ export class MaintenanceComponent implements OnInit {
   datepickerConfig: Partial<BsDatepickerConfig>;
   amount = 0;
   autoTotalAmount = 0;
-  bulkTotalAmount = 0;
+  bulkTotalAmount = '';
   // Bulk
   selectAllUsers = true;
+  selectedUsersArr = [];
 
 
   constructor(private _fb: FormBuilder, private mtcService: MaintenanceService,
@@ -66,17 +67,18 @@ export class MaintenanceComponent implements OnInit {
       subtotal: [this.autoTotalAmount],
       totalbill: [0]
     });
+    this.maintenanceForm.get('bill').disable();
 
-    this.bulkMaintenanceForm = this._fb.group({
-      selectAll: [this.selectAllUsers],
-      resident: [{value: null, disabled: true}, Validators.required],
-      billfor: [null, Validators.required],
-      date: ['', Validators.required],
-      bill: this._fb.array([this.addBulkBillGroup()]),
-      id: [],
-      interest: [0],
-      total: [0]
-    });
+    // this.bulkMaintenanceForm = this._fb.group({
+    //   selectAll: [this.selectAllUsers],
+    //   resident: [{value: null, disabled: true}, Validators.required],
+    //   billfor: [null, Validators.required],
+    //   date: ['', Validators.required],
+    //   bill: this._fb.array([this.addBulkBillGroup()]),
+    //   id: [],
+    //   interest: [0],
+    //   total: ['']
+    // });
 
     this.mtcService.userNameDD().subscribe((item => {
       item.forEach(element => {
@@ -109,9 +111,9 @@ export class MaintenanceComponent implements OnInit {
   }
 
   // Bulk
-  addNewBillBulk() {
-    this.bulkBillArray.push(this.addBulkBillGroup());
-  }
+  // addNewBillBulk() {
+  //   this.bulkBillArray.push(this.addBulkBillGroup());
+  // }
 
   removeBill(index) {
     this.billArray.removeAt(index);
@@ -119,9 +121,10 @@ export class MaintenanceComponent implements OnInit {
   }
 
   // Bulk
-  removeBillBulk(index) {
-    this.bulkBillArray.removeAt(index);
-  }
+  // removeBillBulk(index) {
+  //   this.bulkBillArray.removeAt(index);
+  //   this.calcBulkAmount();
+  // }
 
   addBillGroup() {
     return this._fb.group({
@@ -130,20 +133,20 @@ export class MaintenanceComponent implements OnInit {
     });
   }
 
-  addBulkBillGroup() {
-    return this._fb.group({
-      particular: [null, Validators.required],
-      amount: [this.bulkTotalAmount]
-    })
-  }
+  // addBulkBillGroup() {
+  //   return this._fb.group({
+  //     particular: [null, Validators.required],
+  //     amount: [0]
+  //   })
+  // }
 
   get billArray() {
     return <FormArray>this.maintenanceForm.get('bill');
   }
 
-  get bulkBillArray() {
-    return <FormArray>this.bulkMaintenanceForm.get('bill');
-  }
+  // get bulkBillArray() {
+  //   return <FormArray>this.bulkMaintenanceForm.get('bill');
+  // }
 
   getParticulars() {
     this.mtcService.getParticulars().snapshotChanges().subscribe(
@@ -191,6 +194,11 @@ export class MaintenanceComponent implements OnInit {
 
   OnSelectedUserName() {
     const q = this.maintenanceForm.get('resident').value;
+    if (q === null) {
+      this.maintenanceForm.get('bill').disable();
+    } else {
+      this.maintenanceForm.get('bill').enable();
+    }
     console.log(q);
     this.userService.getUsername(q).subscribe(
       ((username) => {
@@ -263,23 +271,46 @@ export class MaintenanceComponent implements OnInit {
     let val = 0;
     for (let item of this.particulrs) {
       if (item.particular === prt) {
-        val = item.baseprice;
+        val = item.baseprice * +this.selectedUserCarpetArea;
       }
     }
     (<FormArray>this.maintenanceForm.get('bill')).controls[index].get('amount').patchValue(val);
     this.calcAmount();
   }
 
+  // onBulkParticularSelect(event, index) {
+  //   const prt = event.target.value;
+  //   let val = 0;
+  //   for (let item of this.particulrs) {
+  //     if (item.particular === prt) {
+  //       val = item.baseprice;
+  //     }
+  //   }
+  //   (<FormArray>this.bulkMaintenanceForm.get('bill')).controls[index].get('amount').patchValue(val);
+  //   this.calcBulkAmount();
+  // }
+
   calcAmount() {
     let totalA = 0;
     for (let item of (<FormArray>this.maintenanceForm.get('bill')).controls) {
-      totalA = totalA + (item.get('amount').value * this.selectedUserCarpetArea);
+      totalA = totalA + (item.get('amount').value);
     }
 
     this.autoTotalAmount = totalA;
     this.maintenanceForm.get('subtotal').patchValue(this.autoTotalAmount);
     this.maintenanceForm.get('totalbill').patchValue(this.autoTotalAmount);
   }
+
+  // calcBulkAmount() {
+  //   let tot = 0;
+  //   let totalA = '';
+  //   for (let item of (<FormArray>this.bulkMaintenanceForm.get('bill')).controls) {
+  //     tot = tot + (item.get('amount').value);
+  //   }
+  //   totalA = tot + '* Carpet Area';
+  //   this.bulkTotalAmount = totalA;
+  //   this.bulkMaintenanceForm.get('total').patchValue(this.bulkTotalAmount);
+  // }
 
   checkValue(event: any) {
     this.selectAllUsers = this.bulkMaintenanceForm.get('selectAll').value;
@@ -299,51 +330,48 @@ export class MaintenanceComponent implements OnInit {
     return userIdArray;
   }
 
-  onBulkSubmit() {
-    this.selectAllUsers = this.bulkMaintenanceForm.get('selectAll').value;
-    if (this.selectAllUsers) {
-      this.bulkMaintenanceForm.value.resident = this.getAllUserIDs();
-    }
+  // onBulkSubmit() {
+  //   debugger;
+  //   this.selectedUsersArr = [];
+  //   this.bulkMaintenanceForm.value.date = new DatePipe('en-US').transform(this.bulkMaintenanceForm.value.date, 'dd-MM-yyyy');
+  //   const d = new Date();
+  //   const year = d.getFullYear();
+  //   const fory: string = this.bulkMaintenanceForm.value.billfor;
+  //   const id = fory.toUpperCase() + year;
+  //   this.selectAllUsers = this.bulkMaintenanceForm.get('selectAll').value;
+  //   if (this.selectAllUsers) {
+  //     this.bulkMaintenanceForm.value.resident = this.getAllUserIDs();
+  //   }
+  //   const selectedUsers: any = this.bulkMaintenanceForm.value.resident;
+  //   selectedUsers.forEach(element => {
+  //     this.mtcService.getUserMaintenanceCount(element).subscribe(
+  //       (item => {
+  //         this.userService.getUser(element).subscribe((user) => {
+  //           const id = element;
+  //           const count = item.length;
+  //           const carpetarea = user['carpetarea'];
+  //           const building = user['building'];
+  //           const housetype = user['housetype'];
+  //           const flat = user['flat'];
+  //           const residentName = user['name'];
+  //           this.selectedUsersArr.push({id, count, carpetarea, building, housetype, flat, residentName });
+  //         });
 
-    let arr = [];
-    const selectedUsers: [] = this.bulkMaintenanceForm.value.resident;
-    selectedUsers.forEach(element => {
-      this.mtcService.getUserMaintenanceCount(element).subscribe(
-        (item => {
-          const id = element;
-          const count = item.length;
-          arr.push({id, count });
-        }),
-        (err => {
-          console.log(err);
-          this.alertify.error('Oops some error occured');
-        })
-      );
-    });
-    console.log(arr);
-    let finalArr = [];
-    arr.forEach(element => {
-      const id = element['id'];
-      const count = element['count'];
-      console.log(id, count);
-      this.userService.getMainUserList().snapshotChanges().subscribe(
-        (item => {
-          item.forEach(ele => {
-            const x = ele.payload.toJSON();
-            x['$key'] = ele.key;
-            if (x['$key'] === id) {
-              const flat = x['flat'];
-              const housetype = x['housetype'];
-              const carpetarea = x['carpetarea'];
-              const building = x['building'];
-              finalArr.push({flat, housetype, carpetarea, building, id, count});
-            }
-          });
-        })
-      );
-    });
+  //       }),
+  //       (err => {
+  //         console.log(err);
+  //         this.alertify.error('Oops some error occured');
+  //       })
+  //     );
+  //   });
 
-    console.log('Final Array', finalArr);
-  }
+
+  //   for (let item of this.selectedUsersArr) {
+  //     const path = item.id;
+  //     const count = item.count;
+  //     const formVal = this.bulkMaintenanceForm.value;
+  //     this.mtcService.createBulkMaintenance({...item, ...formVal, 'path': path, count: count, id: id});
+  //   }
+  // }
 
 }

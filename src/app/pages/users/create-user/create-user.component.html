@@ -1,5 +1,4 @@
-<div class="container-fluid">
-  <br/>
+<div class="container-fluid mt-5 ml-md-5">
   <div class="row">
     <div class="col-md-12 col-sm-12">
       <div class="card border-0">
@@ -12,7 +11,7 @@
           <form [formGroup]="userForm" (ngSubmit)="onSubmit()" >
             <div class="form-row">
               <div class="form-group col-md-2 col-sm-4">
-                <label for="honorfic"> Salutation</label>
+                <label for="honorfic"> Salutation*</label>
                 <select class="form-control" id="honorfic" formControlName="salutationid" *ngIf="!salutationLoader">
                   <option selected [ngValue]="null">Select</option>
                   <option *ngFor="let item of salutionList" [ngValue]="item.id">{{item.salutation}}</option>
@@ -22,29 +21,47 @@
                       <span class="sr-only">Loading...</span>
                     </div>
                   </div>
+                  <div class="form-text text-danger" *ngIf="userForm.get('salutationid').invalid && userForm.get('salutationid').touched">
+                    Please select this field.
+                  </div>
               </div>
               <div class="form-group col-md-3 col-sm-6">
-                <label for="name">Name</label>
+                <label for="name">Name*</label>
                 <input type="text" class="form-control" id="name" formControlName="name">
+                <div class="form-text text-danger" *ngIf="userForm.get('name').invalid && userForm.get('name').touched">
+                  Name cannot be blank.
+                </div>
               </div>
               <div class="form-group col-md-3 col-sm-6">
-                  <label for="flat">Flat</label>
+                  <label for="flat">Flat*</label>
                   <input type="text" class="form-control" id="flat" formControlName="flat">
+                  <div class="form-text text-danger" *ngIf="userForm.get('flat').invalid && userForm.get('flat').touched">
+                    Flat cannot be blank.
+                  </div>
               </div>
               <div class="form-group col-md-4 col-sm-6">
-                  <label for="buildingName">Building Name</label>
+                  <label for="buildingName">Building Name*</label>
                   <input type="text" class="form-control" id="buildingName" formControlName="building">
+                  <div class="form-text text-danger" *ngIf="userForm.get('building').invalid && userForm.get('building').touched">
+                    Building cannot be blank.
+                  </div>
               </div>
             </div>
           <div class="form-row">
               <div class="form-group col-md-3 col-sm-6">
-                <label for="houseType">House Type</label>
+                <label for="houseType">House Type*</label>
                 <input type="text" class="form-control" id="houseType" placeholder="2 BHK" formControlName="housetype">
+                <div class="form-text text-danger" *ngIf="userForm.get('housetype').invalid && userForm.get('housetype').touched">
+                  House type cannot be blank.
+                </div>
               </div>
 
               <div class="form-group col-md-3 col-sm-6">
-                  <label for="carpetArea">Carpet Area</label>
+                  <label for="carpetArea">Carpet Area*</label>
                   <input type="number" class="form-control" id="carpetArea" formControlName="carpetarea">
+                  <div class="form-text text-danger" *ngIf="userForm.get('carpetarea').invalid && userForm.get('carpetarea').touched">
+                    Carpet area cannot be blank.
+                  </div>
                 </div>
 
               <div class="form-group col-md-3 col-sm-6" style="text-align: center;">
@@ -90,16 +107,40 @@
             </div>
             <div class="form-row">
               <div class="form-group col-md-3 col-sm-6">
-                  <label for="emailid">Email</label>
+                  <label for="emailid">Email*</label>
                   <input type="email" class="form-control" id="emailid" formControlName="emailid">
+                  <div class="form-text text-danger" *ngIf="userForm.get('emailid').hasError('required') && userForm.get('emailid').touched">
+                    Email cannot be blank.
+                  </div>
+                  <div class="form-text text-danger" *ngIf="userForm.get('emailid').hasError('email') && userForm.get('emailid').touched">
+                    Please enter a valid email address.
+                  </div>
               </div>
               <div class="form-group col-md-3 col-sm-6">
-                  <label for="password">Password</label>
+                  <label for="password">Password*</label>
                   <input type="password" class="form-control" id="password" formControlName="password">
+                  <div class="form-text text-danger" *ngIf="userForm.get('password').hasError('required') && userForm.get('password').touched">
+                    Password cannot be blank.
+                  </div>
+                  <div class="form-text text-danger" *ngIf="userForm.get('password').hasError('minlength') && userForm.get('password').touched">
+                    Password cannot be less than 6 characters.
+                  </div>
               </div>
               <div class="form-group col-md-3 col-sm-6">
-                  <label for="mobileNo">Mobile No</label>
+                  <label for="mobileNo">Mobile No*</label>
                   <input type="text" class="form-control" id="mobileNo" formControlName="mobile">
+                  <div class="form-text text-danger" *ngIf="userForm.get('mobile').hasError('required') && userForm.get('mobile').touched">
+                    Please enter the mobile number
+                  </div>
+                  <div class="form-text text-danger" *ngIf="userForm.get('mobile').hasError('minlength') && userForm.get('mobile').touched">
+                    Please enter a valid mobile number
+                  </div>
+                  <div class="form-text text-danger" *ngIf="userForm.get('mobile').hasError('maxlength') && userForm.get('mobile').touched">
+                    Please enter a valid mobile number
+                  </div>
+                  <div class="form-text text-danger" *ngIf="userForm.get('mobile').hasError('pattern') && userForm.get('mobile').touched">
+                    (Only numbers allowed).
+                  </div>
                 </div>
               <div class="form-group col-md-3 col-sm-6">
                   <label for="landlineNo">Landline</label>
@@ -109,7 +150,7 @@
             <br/>
             <div class="form-row">
               <div class="form-group col-md-2 col-sm-6">
-                <button class="btn btn-primary btn-block" type="submit" *ngIf="!showLoader">
+                <button class="btn btn-primary btn-block" type="submit" *ngIf="!showLoader" [disabled]="!userForm.valid">
                   <i class="icon-sub"></i> &nbsp; Submit
                 </button>
                 <div class="d-flex justify-content-center" *ngIf="showLoader">
@@ -119,7 +160,7 @@
                   </div>
               </div>
               <div class="form-group col-md-2 col-sm-6">
-                  <button class="btn btn-outline-secondary btn-block" (click)="this.router.navigate(['/users']);" type="button">
+                  <button class="btn btn-outline-primary btn-block" (click)="this.router.navigate(['/users']);" type="button">
                     <i class="fa fa-ban"></i> &nbsp; Cancel
                   </button>
                 </div>

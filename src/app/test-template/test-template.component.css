@@ -1,242 +1,175 @@
-body {
-  padding-bottom: 30px;
-  position: relative;
-  min-height: 100%;
-}
+/*
+ * Made by Erik Terwan
+ * 24th of November 2015
+ * MIT License
+ *
+ *
+ * If you are thinking of using this in
+ * production code, beware of the browser
+ * prefixes.
+ */
 
-a {
-  transition: background 0.2s, color 0.2s;
-}
-a:hover,
-a:focus {
-  text-decoration: none;
-}
+ body
+ {
+   margin: 0;
+   padding: 0;
 
-#wrapper {
-  padding-left: 0;
-  transition: all 0.5s ease;
-  position: relative;
-}
+   /* make it look decent enough */
+   background: #232323;
+   color: #cdcdcd;
+   font-family: "Avenir Next", "Avenir", sans-serif;
+ }
 
-#sidebar-wrapper {
-  z-index: 1000;
-  position: fixed;
-  left: 250px;
-  width: 0;
-  height: 100%;
-  margin-left: -250px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  background: #222;
-  transition: all 0.5s ease;
-}
+ a
+ {
+   text-decoration: none;
+   color: #232323;
 
-#wrapper.toggled #sidebar-wrapper {
-  width: 250px;
-}
+   transition: color 0.3s ease;
+ }
 
-.sidebar-brand {
-  position: absolute;
-  top: 0;
-  width: 250px;
-  text-align: center;
-  padding: 20px 0;
-}
-.sidebar-brand h2 {
-  margin: 0;
-  font-weight: 600;
-  font-size: 24px;
+ a:hover
+ {
+  color: rgb(194, 181, 181);
+ }
+
+ a {
+   color: #fff;
+   margin-left: 10px;
+ }
+
+ #menuToggle
+ {
+   display: block;
+   position: relative;
+   top: 30px;
+   left: 20px;
+
+   z-index: 1;
+
+   -webkit-user-select: none;
+   user-select: none;
+ }
+
+ #menuToggle input
+ {
+   display: block;
+   width: 40px;
+   height: 32px;
+   position: absolute;
+   top: -7px;
+   left: -5px;
+
+   cursor: pointer;
+
+   opacity: 0; /* hide this */
+   z-index: 2; /* and place it over the hamburger */
+
+   -webkit-touch-callout: none;
+ }
+
+ /*
+  * Just a quick hamburger
+  */
+ #menuToggle span
+ {
+   display: block;
+   width: 33px;
+   height: 4px;
+   margin-bottom: 5px;
+   position: relative;
+
+   background: #5900b3;
+   border-radius: 3px;
+
+   z-index: 1;
+
+   transform-origin: 4px 0px;
+
+   transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+               background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+               opacity 0.55s ease;
+ }
+
+ #menuToggle span:first-child
+ {
+   transform-origin: 0% 0%;
+ }
+
+ #menuToggle span:nth-last-child(2)
+ {
+   transform-origin: 0% 100%;
+ }
+
+ /*
+  * Transform all the slices of hamburger
+  * into a crossmark.
+  */
+ #menuToggle input:checked ~ span
+ {
+   opacity: 1;
+   transform: rotate(45deg) translate(-2px, -1px);
+   background: #fff;
+ }
+
+ /*
+  * But let's hide the middle one.
+  */
+ #menuToggle input:checked ~ span:nth-last-child(3)
+ {
+   opacity: 0;
+   transform: rotate(0deg) scale(0.2, 0.2);
+ }
+
+ /*
+  * Ohyeah and the last one should go the other direction
+  */
+ #menuToggle input:checked ~ span:nth-last-child(2)
+ {
+   transform: rotate(-45deg) translate(0, -1px);
+ }
+
+ /*
+  * Make this absolute positioned
+  * at the top left of the screen
+  */
+ #menu
+ {
+   position: absolute;
+   width: 300px;
+   margin: -100px 0 0 -50px;
+   padding: 50px;
+   padding-top: 125px;
+   height: 100vh;
+   background: rgba(89, 0, 179, 0.8);
+   list-style-type: none;
+   -webkit-font-smoothing: antialiased;
+   /* to stop flickering of text in safari */
+
+   transform-origin: 0% 0%;
+   transform: translate(-100%, 0);
+
+   transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+ }
+
+ #menu li
+ {
+   padding: 10px 0;
+   font-size: 22px;
+ }
+
+ /*
+  * And let's slide it in from the left
+  */
+ #menuToggle input:checked ~ ul
+ {
+   transform: none;
+ }
+
+ .dropdown-menu .dropdown-item {
+   color: #5900b3;
+ }
+
+ .dropdown-menu .dropdown-item:hover {
   color: #fff;
-}
-
-.sidebar-nav {
-  position: absolute;
-  top: 75px;
-  width: 250px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.sidebar-nav > li {
-  text-indent: 10px;
-  line-height: 42px;
-}
-.sidebar-nav > li a {
-  display: block;
-  text-decoration: none;
-  color: #757575;
-  font-weight: 600;
-  font-size: 18px;
-}
-.sidebar-nav > li > a:hover,
-.sidebar-nav > li.active > a {
-  text-decoration: none;
-  color: #fff;
-  background: #F8BE12;
-}
-.sidebar-nav > li > a i.fa {
-  font-size: 24px;
-  width: 60px;
-}
-
-#navbar-wrapper {
-    width: 100%;
-    position: absolute;
-    z-index: 2;
-}
-#wrapper.toggled #navbar-wrapper {
-    position: absolute;
-    margin-right: -250px;
-}
-#navbar-wrapper .navbar {
-  border-width: 0 0 0 0;
-  background-color: #eee;
-  font-size: 24px;
-  margin-bottom: 0;
-  border-radius: 0;
-}
-#navbar-wrapper .navbar a {
-  color: #757575;
-}
-#navbar-wrapper .navbar a:hover {
-  color: #F8BE12;
-}
-
-#content-wrapper {
-  width: 100%;
-  position: absolute;
-  padding: 15px;
-  top: 100px;
-}
-#wrapper.toggled #content-wrapper {
-  position: absolute;
-  margin-right: -250px;
-}
-
-@media (min-width: 992px) {
-  #wrapper {
-    padding-left: 250px;
-  }
-
-  #wrapper.toggled {
-    padding-left: 60px;
-  }
-
-  #sidebar-wrapper {
-    width: 250px;
-  }
-
-  #wrapper.toggled #sidebar-wrapper {
-    width: 60px;
-  }
-
-  #wrapper.toggled #navbar-wrapper {
-    position: absolute;
-    margin-right: -190px;
-}
-
-  #wrapper.toggled #content-wrapper {
-    position: absolute;
-    margin-right: -190px;
-  }
-
-  #navbar-wrapper {
-    position: relative;
-  }
-
-  #wrapper.toggled {
-    padding-left: 60px;
-  }
-
-  #content-wrapper {
-    position: relative;
-    top: 0;
-  }
-
-  #wrapper.toggled #navbar-wrapper,
-  #wrapper.toggled #content-wrapper {
-    position: relative;
-    margin-right: 60px;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  #wrapper {
-    padding-left: 60px;
-  }
-
-  #sidebar-wrapper {
-    width: 60px;
-  }
-
-#wrapper.toggled #navbar-wrapper {
-    position: absolute;
-    margin-right: -250px;
-}
-
-  #wrapper.toggled #content-wrapper {
-    position: absolute;
-    margin-right: -250px;
-  }
-
-  #navbar-wrapper {
-    position: relative;
-  }
-
-  #wrapper.toggled {
-    padding-left: 250px;
-  }
-
-  #content-wrapper {
-    position: relative;
-    top: 0;
-  }
-
-  #wrapper.toggled #navbar-wrapper,
-  #wrapper.toggled #content-wrapper {
-    position: relative;
-    margin-right: 250px;
-  }
-}
-
-@media (max-width: 767px) {
-  #wrapper {
-    padding-left: 0;
-  }
-
-  #sidebar-wrapper {
-    width: 0;
-  }
-
-  #wrapper.toggled #sidebar-wrapper {
-    width: 250px;
-  }
-  #wrapper.toggled #navbar-wrapper {
-    position: absolute;
-    margin-right: -250px;
-  }
-
-  #wrapper.toggled #content-wrapper {
-    position: absolute;
-    margin-right: -250px;
-  }
-
-  #navbar-wrapper {
-    position: relative;
-  }
-
-  #wrapper.toggled {
-    padding-left: 250px;
-  }
-
-  #content-wrapper {
-    position: relative;
-    top: 0;
-  }
-
-  #wrapper.toggled #navbar-wrapper,
-  #wrapper.toggled #content-wrapper {
-    position: relative;
-    margin-right: 250px;
-  }
 }

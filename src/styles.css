@@ -9,3 +9,10 @@
   font-size: 1rem;
 }
 
+.btn {
+  border-radius: 4px;
+}
+
+label {
+  color: #5900b3;
+}

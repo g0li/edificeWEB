@@ -13,12 +13,6 @@ export class TemplateComponent implements OnInit {
   constructor(public authService: AuthService, public userloginService: UserLoginService) { }
 
   ngOnInit() {
-    $('#menu-toggle').click(function(e) {
-      e.preventDefault();
-      $('#wrapper').toggleClass('toggled');
-    });
-
-    this.userEmail = this.authService.getUserEmail();
   }
 
   // ngDoCheck() {
